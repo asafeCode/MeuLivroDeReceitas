@@ -3,21 +3,20 @@ using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 
-namespace MyRecipeBook.API.Controllers
+namespace MyRecipeBook.API.Controllers;
+
+[Route("[controller]")]
+[ApiController]
+public class UserController : ControllerBase
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    [HttpPost]
+    [ProducesResponseType(typeof(ResponseRegisteredUserJson),StatusCodes.Status201Created)]
+    public IActionResult Register(RequestUserRegisterJson request)
     {
-        [HttpPost]
-        [ProducesResponseType(typeof(ResponseRegisteredUserJson),StatusCodes.Status201Created)]
-        public IActionResult Register(RequestUserRegisterJson request)
-        {
-            var useCase = new RegisterUserUseCase();
+        var useCase = new RegisterUserUseCase();
 
-            var result = useCase.Execute(request);
+        var result = useCase.Execute(request);
 
-            return Created(string.Empty, result);
-        }
+        return Created(string.Empty, result);
     }
 }
