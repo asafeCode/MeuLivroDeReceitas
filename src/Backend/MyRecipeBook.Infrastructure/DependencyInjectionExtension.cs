@@ -28,8 +28,10 @@ public static class DependencyInjectionExtension
 
     private static void AddRepositories(this IServiceCollection services)
     {
+        
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
     }
 }

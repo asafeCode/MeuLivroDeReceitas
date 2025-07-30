@@ -13,32 +13,38 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 {
     private readonly IUserReadOnlyRepository _readOnlyRepository;
     private readonly IUserWriteOnlyRepository _writeOnlyRepository;
-    private readonly Mapper _mapper;
+    private readonly IMapper _mapper;
+    private readonly PasswordEncripter _passwordEncripter;
+    private readonly IUnitOfWork _unitOfWork;
 
     public RegisterUserUseCase(
         IUserReadOnlyRepository readOnlyRepository, 
         IUserWriteOnlyRepository writeOnlyRepository, 
-        Mapper mapper)
+        IMapper mapper,
+        PasswordEncripter passwordEncripter,
+        IUnitOfWork unitOfWork)
     {
         _readOnlyRepository = readOnlyRepository;
         _writeOnlyRepository = writeOnlyRepository;
         _mapper = mapper;
+        _passwordEncripter = passwordEncripter;
+        _unitOfWork = unitOfWork;
         
     }
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestUserRegisterJson request)
     {            
-        var passwordEncripter = new PasswordEncripter();
         
         Validate(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);// Instanciando a Classe em uma Variavel
 
         // Criptografia da Senha
-        user.Password = passwordEncripter.Encrypt(request.Password);
+        user.Password = _passwordEncripter.Encrypt(request.Password);  
 
         // Salvar no banco de Dados
         await _writeOnlyRepository.Add(user);
+        await _unitOfWork.Commit();
 
 
 
