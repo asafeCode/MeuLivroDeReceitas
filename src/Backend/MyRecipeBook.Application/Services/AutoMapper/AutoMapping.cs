@@ -13,7 +13,7 @@ public class AutoMapping : Profile
     {
         CreateMap<RequestUserRegisterJson, Domain.Entities.User>()
             .ForMember(dest => dest.Password, opt => opt.Ignore());
-     // AutoMapper, Mapeie todas as propriedades, menos 'Password'
+     // AutoMapper, Mapeie todas as propriedades e ignore 'Password'
     }
 }
 
