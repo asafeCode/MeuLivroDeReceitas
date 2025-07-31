@@ -1,6 +1,6 @@
 ﻿namespace MyRecipeBook.Domain.Entities;
 
-//teste de push-all.bat
+//teste de pull req na develop
 public class User : EntityBase
 {
     public string Name { get; set; } = string.Empty;
