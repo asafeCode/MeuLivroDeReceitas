@@ -5,31 +5,46 @@ using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
 
-public class RegisterUserUseCase
+public class RegisterUserUseCase : IRegisterUserUseCase
 {
-    private readonly IUserReadOnlyRepository _ReadOnlyRepository;
-    private readonly IUserWriteOnlyRepository _WriteOnlyRepository;
+    private readonly IUserReadOnlyRepository _readOnlyRepository;
+    private readonly IUserWriteOnlyRepository _writeOnlyRepository;
+    private readonly IMapper _mapper;
+    private readonly PasswordEncripter _passwordEncripter;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public RegisterUserUseCase(
+        IUserReadOnlyRepository readOnlyRepository, 
+        IUserWriteOnlyRepository writeOnlyRepository, 
+        IMapper mapper,
+        PasswordEncripter passwordEncripter,
+        IUnitOfWork unitOfWork)
+    {
+        _readOnlyRepository = readOnlyRepository;
+        _writeOnlyRepository = writeOnlyRepository;
+        _mapper = mapper;
+        _passwordEncripter = passwordEncripter;
+        _unitOfWork = unitOfWork;
+        
+    }
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestUserRegisterJson request)
     {            
-        var passwordEncripter = new PasswordEncripter();
-        var autoMapper = new AutoMapper.MapperConfiguration(options =>
-        {
-            options.AddProfile(new AutoMapping());
-        }).CreateMapper();
-
+        
         Validate(request);
 
-        var user = autoMapper.Map<Domain.Entities.User>(request);// Instanciando a Classe em uma Variavel
+        var user = _mapper.Map<Domain.Entities.User>(request);// Instanciando a Classe em uma Variavel
 
         // Criptografia da Senha
-        user.Password = passwordEncripter.Encrypt(request.Password);
+        user.Password = _passwordEncripter.Encrypt(request.Password);  
 
         // Salvar no banco de Dados
-        await _WriteOnlyRepository.Add(user);
+        await _writeOnlyRepository.Add(user);
+        await _unitOfWork.Commit();
 
 
 

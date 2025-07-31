@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MyRecipeBook.Infrastructure.DataAcess;
+namespace MyRecipeBook.Infrastructure.DataAccess;
 
 public class MyRecipeBookDbContext : DbContext
 {
