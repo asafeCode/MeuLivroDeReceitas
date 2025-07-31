@@ -1,6 +1,7 @@
 ﻿namespace MyRecipeBook.Domain.Entities;
 
 //teste de pull req na develop
+//aprendendo git da forma correta
 public class User : EntityBase
 {
     public string Name { get; set; } = string.Empty;
