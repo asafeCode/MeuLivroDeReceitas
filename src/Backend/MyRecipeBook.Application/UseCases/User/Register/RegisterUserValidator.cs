@@ -14,5 +14,10 @@ public class RegisterUserValidator : AbstractValidator<RequestUserRegisterJson>
         RuleFor(user => user.Email).EmailAddress();
         RuleFor(user => user.Password).NotEmpty();
         RuleFor(user => user.Password.Length).GreaterThanOrEqualTo(6);
+
+        When(user => string.IsNullOrEmpty(user.Email), () =>
+        {
+
+        });
     }
 }
