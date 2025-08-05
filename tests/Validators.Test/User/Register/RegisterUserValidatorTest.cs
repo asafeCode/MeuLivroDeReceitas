@@ -17,4 +17,17 @@ public class RegisterUserValidatorTest
         
         result.IsValid.ShouldBe(true);
     }
+    
+    [Fact]
+       public void Error_Name_Empty()
+    {
+        var validator = new RegisterUserValidator();
+
+        var request = RequestUserRegisterJsonBuilder.Build();
+        request.Name = string.Empty;
+        
+        var result = validator.Validate(request);
+        
+        result.IsValid.ShouldBe(false);
+    }
 }
