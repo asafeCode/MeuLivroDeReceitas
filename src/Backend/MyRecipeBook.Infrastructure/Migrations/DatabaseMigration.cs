@@ -1,6 +1,8 @@
 ﻿using Dapper;
+using FluentMigrator.Runner;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MyRecipeBook.Infrastructure.Migrations;
 
@@ -8,9 +10,10 @@ namespace MyRecipeBook.Infrastructure.Migrations;
 
 public static class DatabaseMigration
 {
-    public static void Migrate(string connectionString)
+    public static void Migrate(string connectionString, IServiceProvider serviceProvider)
     {
         EnsureDatabaseCreated_SqlServer(connectionString);
+        MigrationDatabase(serviceProvider);
     }
 
     private static void EnsureDatabaseCreated_SqlServer(string connectionString)
@@ -34,5 +37,15 @@ public static class DatabaseMigration
         }
 
 
+    }
+
+    private static void MigrationDatabase(IServiceProvider serviceProvider)
+    {
+        var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+
+        runner.ListMigrations();
+        
+        runner.MigrateUp();
+        
     }
 }
