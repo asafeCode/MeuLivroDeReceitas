@@ -37,7 +37,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     public async Task<ResponseRegisteredUserJson> Execute(RequestUserRegisterJson request)
     {            
         
-         await Validate(request);
+        await Validate(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);// Instanciando a Classe em uma Variavel
 
@@ -52,7 +52,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
         return new ResponseRegisteredUserJson
         {
-            Name = request.Name,
+            Name = user.Name,
             
         };
     }
