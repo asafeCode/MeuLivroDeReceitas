@@ -3,6 +3,8 @@ using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using MyRecipeBook.Application.UseCases.User.Register;
+using MyRecipeBook.Exceptions;
+using MyRecipeBook.Exceptions.ExceptionsBase;
 using Shouldly;
 
 namespace UseCases.Test.User.Register;
@@ -19,16 +21,39 @@ public class RegisterUserUseCaseTest
         result.ShouldNotBeNull();
         result.Name.ShouldBeSameAs(request.Name);
     }
-
     [Fact]
-    public async Task Email_Already_Exists()
+    public async Task Error_Email_Already_Registered()
     {
         var request = RequestUserRegisterJsonBuilder.Build();
         
         var useCase = CreateUseCase(request.Email);
         
-        var result = await useCase.Execute(request);
+        Func<Task> act = async () => await useCase.Execute(request);
+
+        var exception = await act.ShouldThrowAsync<ErrorOnValidationException>();
+        
+        exception.ErrorMessages.Count.ShouldBe(1);
+        exception.ErrorMessages.ShouldContain(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
+    }    
+    [Fact]
+    public async Task Error_Name_Empty()
+    {
+        var request = RequestUserRegisterJsonBuilder.Build();
+        request.Name = String.Empty;
+        
+        var useCase = CreateUseCase();
+        
+        Func<Task> act = async () => await useCase.Execute(request);
+
+        var exception = await act.ShouldThrowAsync<ErrorOnValidationException>();
+        
+        exception.ErrorMessages.Count.ShouldBe(1);
+        exception.ErrorMessages.ShouldContain(ResourceMessagesException.NAME_EMPTY);
     }
+    
+    
+    
+    
     private RegisterUserUseCase CreateUseCase(string? email = null)
     {
         var passwordEncripter = PasswordEncripterBuilder.Build();
