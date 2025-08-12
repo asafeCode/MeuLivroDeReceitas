@@ -1,9 +1,12 @@
-﻿using System.Net;
+﻿using System.Globalization;
+using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 using CommonTestUtilities.Requests;
 using Microsoft.AspNetCore.Mvc.Testing;
+using MyRecipeBook.Exceptions;
 using Shouldly;
+using WebApi.Test.InlineData;
 
 namespace WebApi.Test.User.Register;
 
@@ -36,4 +39,35 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : IClassFixtu
             name.ShouldBe(request.Name);
         });
     }
+    
+    [Theory]
+    [ClassData(typeof(CultureInlineDataTest))]
+    public async Task Error_Name_Empty(string culture)
+    {
+        var request = RequestUserRegisterJsonBuilder.Build();
+        request.Name = String.Empty;
+
+        if (_httpClient.DefaultRequestHeaders.Contains("Accept-Language"))
+            _httpClient.DefaultRequestHeaders.Remove("Accept-Language");
+        
+        _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
+
+        var response = await _httpClient.PostAsJsonAsync("User", request);
+        
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+        
+        await using var responseBody = await response.Content.ReadAsStreamAsync();
+        
+        var responseData = await JsonDocument.ParseAsync(responseBody);
+
+        var error = responseData.RootElement.GetProperty("errors").EnumerateArray();
+        var expectedMessage = ResourceMessagesException.ResourceManager.GetString("NAME_EMPTY", new CultureInfo(culture));
+        
+        error.ShouldSatisfyAllConditions(() =>
+        {
+            error.ShouldHaveSingleItem();
+            error.ShouldContain(jsonElement => jsonElement.GetString()!.Equals(expectedMessage));
+        });
+    }
+
 }
