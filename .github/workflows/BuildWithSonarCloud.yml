@@ -45,17 +45,17 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
+        
+      - name: Begin SonarCloud analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: .\.sonar\scanner\dotnet-sonarscanner begin /k:"asafeCode_MeuLivroDeReceitas" /o:"matheusasafe" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests and collect code coverage
         run: dotnet test --configuration Release --collect "Code coverage"
-
-      - name: Begin SonarCloud analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: .\.sonar\scanner\dotnet-sonarscanner begin /k:"asafeCode_MeuLivroDeReceitas" /o:"matheusasafe" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: End SonarCloud analysis
         env:
