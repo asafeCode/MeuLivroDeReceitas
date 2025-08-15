@@ -5,7 +5,7 @@ using MyRecipeBook.Application;
 using MyRecipeBook.Infrastructure;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Migrations;
-// Teste PullReq com QualityGate
+// Teste PullReq com Quality Gate
 
 var builder = WebApplication.CreateBuilder(args);
 
