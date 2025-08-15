@@ -20,20 +20,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
 
       - name: Cache SonarQube Cloud packages
         uses: actions/cache@v4
         with:
-          path: ${{ env.USERPROFILE }}\.sonar\cache
+          path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-
-      - name: List sonar cache folder
-        run: dir $env:USERPROFILE\.sonar\cache
-        shell: powershell
-
-
 
       - name: Cache SonarQube Cloud scanner
         id: cache-sonar-scanner
