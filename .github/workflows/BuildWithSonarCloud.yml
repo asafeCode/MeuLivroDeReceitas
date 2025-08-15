@@ -61,5 +61,14 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        
+      - name: Check SonarCloud Quality Gate
+        uses: SonarSource/sonarcloud-quality-gate-action@master
+        with:
+          projectKey: asafeCode_MeuLivroDeReceitas
+          organization: matheusasafe
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
 
