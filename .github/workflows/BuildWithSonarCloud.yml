@@ -49,13 +49,13 @@ jobs:
       - name: Begin SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: .\.sonar\scanner\dotnet-sonarscanner begin /k:"asafeCode_MeuLivroDeReceitas" /o:"matheusasafe" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths="**/TestResults/*/coverage.cobertura.xml"
+        run: .\.sonar\scanner\dotnet-sonarscanner begin /k:"asafeCode_MeuLivroDeReceitas" /o:"matheusasafe" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="TestResults/**/*.cobertura.xml"
 
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests and collect code coverage
-        run: dotnet test --configuration Release --collect "Code Coverage" --settings tests/coverage.runsettings
+        run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=TestResults/
         
       - name: Debug - List test results folder
         shell: cmd
