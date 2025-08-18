@@ -3,6 +3,7 @@ using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using MyRecipeBook.Application.UseCases.User.Register;
+using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 using Shouldly;
@@ -54,7 +55,7 @@ public class RegisterUserUseCaseTest
     
     
     
-    private RegisterUserUseCase CreateUseCase(string? email = null)
+    private static RegisterUserUseCase CreateUseCase(string? email = null)
     {
         var passwordEncripter = PasswordEncripterBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
@@ -62,7 +63,7 @@ public class RegisterUserUseCaseTest
         var writeOnly = UserWriteOnlyRepositoryBuilder.Build();   
         var mapper = MapperBuilder.Build();
 
-        if (string.IsNullOrEmpty(email) == false)
+        if (email.NotEmpty())
         {
             readOnlyBuilder.ExistsActiveUserWithEmail(email);
         }
