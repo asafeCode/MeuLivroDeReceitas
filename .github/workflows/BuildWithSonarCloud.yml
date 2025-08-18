@@ -58,8 +58,10 @@ jobs:
         run: dotnet test --configuration Release --collect "Code Coverage" --settings tests/coverage.runsettings
         
       - name: Debug - List test results folder
+        shell: cmd
         run: dir /s /b TestResults
-
+      
+      
       - name: End SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
