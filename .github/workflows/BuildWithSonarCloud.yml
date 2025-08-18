@@ -68,10 +68,6 @@ jobs:
           dotnet test tests/UseCases.Test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
           dotnet test tests/Validators.Test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
 
-      - name: Debug - List all coverage reports
-        shell: cmd
-        run: dir /s /b tests\*Test\*\TestResults\coverage.cobertura.xml
-
       - name: End SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
