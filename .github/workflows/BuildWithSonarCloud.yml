@@ -55,7 +55,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests and collect code coverage
-        run: dotnet test --configuration Release --collect "Code coverage"
+        run: dotnet test --configuration Release --collect "Code Coverage"
 
       - name: End SonarCloud analysis
         env:
