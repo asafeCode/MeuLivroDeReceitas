@@ -7,6 +7,7 @@ using MyRecipeBook.Exceptions.ExceptionsBase;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using FluentValidation.Results;
+using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Exceptions;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
@@ -69,7 +70,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
             result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
         
 
-        if (result.IsValid == false)
+        if (result.IsValid.IsFalse())
         {
             var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
 
