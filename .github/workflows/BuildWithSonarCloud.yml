@@ -46,6 +46,9 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
+      - name: Install ReportGenerator tool
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
       - name: Restore dependencies
         run: dotnet restore
 
@@ -56,22 +59,36 @@ jobs:
           /k:"asafeCode_MeuLivroDeReceitas" `
           /o:"matheusasafe" `
           /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
-          /d:sonar.cs.opencover.reportsPaths="tests/**/TestResults/**/coverage.cobertura.xml" `
-          /d:sonar.newCode.referenceBranch=develop
+          /d:sonar.cs.opencover.reportsPaths="tests/**/coverage.cobertura.xml"
 
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests and collect code coverage
+        run: dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage"
+
+      - name: Convert coverage to Cobertura format
         run: |
-          dotnet test tests/WebApi.Test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-          dotnet test tests/UseCases.Test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-          dotnet test tests/Validators.Test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+          $coverageDir = Get-ChildItem -Recurse -Filter "coverage.cobertura.xml" | Select-Object -First 1
+          reportgenerator `
+            -reports:"$($coverageDir.FullName)" `
+            -targetdir:"coverage-report" `
+            -reporttypes:"Cobertura" `
+            -assemblyfilters:"+*" `
+            -classfilters:"+*"
+        shell: pwsh
+
+      - name: Move Cobertura report to correct location
+        run: |
+          mkdir tests\TestResults
+          Copy-Item -Path "coverage-report\Cobertura.xml" -Destination "tests\TestResults\coverage.cobertura.xml"
+        shell: pwsh
 
       - name: End SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
 
 
 
