@@ -59,7 +59,7 @@ jobs:
           /k:"asafeCode_MeuLivroDeReceitas" `
           /o:"matheusasafe" `
           /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
-          /d:sonar.cs.opencover.reportsPaths="tests/**/coverage.cobertura.xml"
+          /d:sonar.cs.opencover.reportsPaths="tests/TestResults/coverage.cobertura.xml"
 
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
@@ -67,11 +67,10 @@ jobs:
       - name: Run tests and collect code coverage
         run: dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage"
 
-      - name: Convert coverage to Cobertura format
+      - name: Combine all coverage reports
         run: |
-          $coverageDir = Get-ChildItem -Recurse -Filter "coverage.cobertura.xml" | Select-Object -First 1
           reportgenerator `
-            -reports:"$($coverageDir.FullName)" `
+            -reports:"tests/**/TestResults/**/coverage.cobertura.xml" `
             -targetdir:"coverage-report" `
             -reporttypes:"Cobertura" `
             -assemblyfilters:"+*" `
@@ -81,7 +80,7 @@ jobs:
       - name: Move Cobertura report to correct location
         run: |
           mkdir tests\TestResults
-          Copy-Item -Path "coverage-report\Cobertura.xml" -Destination "tests\TestResults\coverage.cobertura.xml"
+          Copy-Item "coverage-report/Cobertura.xml" -Destination "tests/TestResults/coverage.cobertura.xml"
         shell: pwsh
 
       - name: End SonarCloud analysis
