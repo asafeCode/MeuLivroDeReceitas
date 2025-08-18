@@ -19,10 +19,10 @@ public class CultureMiddleware
 
         var cultureInfo = new CultureInfo("en");
 
-        if (string.IsNullOrWhiteSpace(requestedCulture).IsFalse()
+        if (requestedCulture.NotEmpty()
             && supportedLanguages.Any(c=> c.Name.Equals(requestedCulture)))
         {
-            cultureInfo = new CultureInfo(requestedCulture!);
+            cultureInfo = new CultureInfo(requestedCulture);
 
         }
         

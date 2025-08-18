@@ -63,9 +63,9 @@ public class RegisterUserUseCaseTest
         var writeOnly = UserWriteOnlyRepositoryBuilder.Build();   
         var mapper = MapperBuilder.Build();
 
-        if (string.IsNullOrEmpty(email).IsFalse())
+        if (email.NotEmpty())
         {
-            readOnlyBuilder.ExistsActiveUserWithEmail(email!);
+            readOnlyBuilder.ExistsActiveUserWithEmail(email);
         }
         
         return new RegisterUserUseCase(readOnlyBuilder.Build(), writeOnly, mapper, passwordEncripter, unitOfWork);

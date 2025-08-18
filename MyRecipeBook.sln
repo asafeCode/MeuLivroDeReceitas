@@ -22,6 +22,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyRecipeBook.Exceptions", "src\Shared\MyRecipeBook.Exception\MyRecipeBook.Exceptions.csproj", "{7395F1F9-FCD4-4DF1-A3D0-D8507777EED6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F1B1DAE3-DA34-40EF-A208-5EDF1F5C650E}"
+	ProjectSection(SolutionItems) = preProject
+		tests\coverage.runsettings.xml = tests\coverage.runsettings.xml
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Test", "tests\Validators.Test\Validators.Test.csproj", "{5241E6F1-D93C-4300-AD33-754EC1E07FCA}"
 EndProject
