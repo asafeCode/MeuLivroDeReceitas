@@ -56,6 +56,9 @@ jobs:
 
       - name: Run tests and collect code coverage
         run: dotnet test --configuration Release --collect "Code Coverage" --settings tests/coverage.runsettings
+        
+      - name: Debug - List test results folder
+        run: dir /s /b TestResults
 
       - name: End SonarCloud analysis
         env:
