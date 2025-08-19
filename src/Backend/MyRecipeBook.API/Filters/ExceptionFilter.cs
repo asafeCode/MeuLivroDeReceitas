@@ -19,21 +19,14 @@ public class ExceptionFilter : IExceptionFilter
 
     private static void HandleProjectException(ExceptionContext context)
     {
-        if (context.Exception is ErrorOnValidationException)
-        {
-            var exception = context.Exception as ErrorOnValidationException;
-
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.ErrorMessages));
-        }
-
+        if (context.Exception is not ErrorOnValidationException exception) return;
+        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.ErrorMessages));
     }
     private static void ThrowUnknowException(ExceptionContext context)
     { 
          context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
          context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesException.UNKNOWN_ERROR));
-        
-
     }
 
 
