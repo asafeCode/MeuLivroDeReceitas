@@ -2,6 +2,7 @@
 using Shouldly;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Exceptions;
+using Xunit;
 
 namespace Validators.Test.User.Register;
 

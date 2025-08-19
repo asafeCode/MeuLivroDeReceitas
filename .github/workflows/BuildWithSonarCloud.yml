@@ -46,9 +46,6 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
-      - name: Install ReportGenerator tool
-        run: dotnet tool install --global dotnet-reportgenerator-globaltool
-
       - name: Restore dependencies
         run: dotnet restore
 
@@ -59,30 +56,18 @@ jobs:
           /k:"asafeCode_MeuLivroDeReceitas" `
           /o:"matheusasafe" `
           /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
-          /d:sonar.cs.opencover.reportsPaths="tests/TestResults/coverage.cobertura.xml"
-
+          /d:sonar.cs.opencover.reportsPaths=tests/**/*.Test/cobertura/coverage.opencover.xml
+      
+      
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests and collect code coverage
-        run: dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage"
-
-      - name: Combine all coverage reports
         run: |
-          reportgenerator `
-            -reports:"tests/**/TestResults/**/coverage.cobertura.xml" `
-            -targetdir:"coverage-report" `
-            -reporttypes:"Cobertura" `
-            -assemblyfilters:"+*" `
-            -classfilters:"+*"
-        shell: pwsh
-
-      - name: Move Cobertura report to correct location
-        run: |
-          mkdir tests\TestResults
-          Copy-Item "coverage-report/Cobertura.xml" -Destination "tests/TestResults/coverage.cobertura.xml"
-        shell: pwsh
-
+          dotnet test tests/UseCases.Test/UseCases.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
+          dotnet test tests/Validators.Test/Validators.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
+          dotnet test tests/WebApi.Test/WebApi.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
+              
       - name: End SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

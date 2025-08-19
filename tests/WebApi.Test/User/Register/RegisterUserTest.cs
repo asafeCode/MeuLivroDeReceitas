@@ -1,12 +1,16 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Threading.Tasks;
 using CommonTestUtilities.Requests;
 using Microsoft.AspNetCore.Mvc.Testing;
 using MyRecipeBook.Exceptions;
 using Shouldly;
 using WebApi.Test.InlineData;
+using Xunit;
 
 namespace WebApi.Test.User.Register;
 
@@ -45,7 +49,7 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : IClassFixtu
     public async Task Error_Name_Empty(string culture)
     {
         var request = RequestUserRegisterJsonBuilder.Build();
-        request.Name = String.Empty;
+        request.Name = string.Empty;
 
         if (_httpClient.DefaultRequestHeaders.Contains("Accept-Language"))
             _httpClient.DefaultRequestHeaders.Remove("Accept-Language");
