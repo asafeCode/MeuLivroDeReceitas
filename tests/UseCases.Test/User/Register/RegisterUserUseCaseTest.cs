@@ -1,4 +1,6 @@
-﻿using CommonTestUtilities.Cryptography;
+﻿using System;
+using System.Threading.Tasks;
+using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
@@ -7,6 +9,7 @@ using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 using Shouldly;
+using Xunit;
 
 namespace UseCases.Test.User.Register;
 
