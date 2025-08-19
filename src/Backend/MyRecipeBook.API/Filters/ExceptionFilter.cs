@@ -21,7 +21,7 @@ public class ExceptionFilter : IExceptionFilter
     {
         if (context.Exception is not ErrorOnValidationException exception) return;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.ErrorMessages));
+        context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception.ErrorMessages));
     }
     private static void ThrowUnknowException(ExceptionContext context)
     { 
