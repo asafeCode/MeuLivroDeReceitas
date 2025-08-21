@@ -6,7 +6,6 @@ using MyRecipeBook.Infrastructure;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Migrations;
 // Teste PullReq com Quality Gate
-// Teste Regra de Branches
 
 var builder = WebApplication.CreateBuilder(args);
 

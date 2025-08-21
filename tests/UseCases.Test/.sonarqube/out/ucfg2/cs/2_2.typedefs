@@ -1,0 +1,22 @@
+ÿ
+'MyRecipeBook.Domain.Entities.EntityBaseobjectD
+EntityBase()4MyRecipeBook.Domain.Entities.EntityBase.EntityBase()8
+Id.get.MyRecipeBook.Domain.Entities.EntityBase.Id.get8
+Id.set.MyRecipeBook.Domain.Entities.EntityBase.Id.set@
+
+Active.get2MyRecipeBook.Domain.Entities.EntityBase.Active.get@
+
+Active.set2MyRecipeBook.Domain.Entities.EntityBase.Active.setF
+CreatedOn.get5MyRecipeBook.Domain.Entities.EntityBase.CreatedOn.getF
+CreatedOn.set5MyRecipeBook.Domain.Entities.EntityBase.CreatedOn.setì
+!MyRecipeBook.Domain.Entities.User'MyRecipeBook.Domain.Entities.EntityBaseobject2
+User()(MyRecipeBook.Domain.Entities.User.User()6
+Name.get*MyRecipeBook.Domain.Entities.User.Name.get6
+Name.set*MyRecipeBook.Domain.Entities.User.Name.set8
+	Email.get+MyRecipeBook.Domain.Entities.User.Email.get8
+	Email.set+MyRecipeBook.Domain.Entities.User.Email.set>
+Password.get.MyRecipeBook.Domain.Entities.User.Password.get>
+Password.set.MyRecipeBook.Domain.Entities.User.Password.set3
+1MyRecipeBook.Domain.Repositories.User.IUnitOfWork@
+>MyRecipeBook.Domain.Repositories.User.IUserWriteOnlyRepository?
+=MyRecipeBook.Domain.Repositories.User.IUserReadOnlyRepository
