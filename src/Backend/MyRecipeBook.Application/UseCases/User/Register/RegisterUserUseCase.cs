@@ -34,10 +34,8 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         _unitOfWork = unitOfWork;
         
     }
-
     public async Task<ResponseRegisteredUserJson> Execute(RequestUserRegisterJson request)
     {            
-        
         await Validate(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);// Instanciando a Classe em uma Variavel
@@ -48,13 +46,10 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         // Salvar no banco de Dados
         await _writeOnlyRepository.Add(user);
         await _unitOfWork.Commit();
-
-
-
+        
         return new ResponseRegisteredUserJson
         {
             Name = user.Name,
-            
         };
     }
 
@@ -62,14 +57,13 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     {
         var validator = new RegisterUserValidator();
 
-        var result = validator.Validate(request);
+        var result =  await validator.ValidateAsync(request);
         
         var emailExists = await _readOnlyRepository.ExistsActiveUserWithEmail(request.Email);
 
         if (emailExists)
             result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
         
-
         if (result.IsValid.IsFalse())
         {
             var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
