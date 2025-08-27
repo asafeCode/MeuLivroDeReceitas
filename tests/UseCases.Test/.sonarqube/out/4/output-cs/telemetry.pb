@@ -1,1 +1,0 @@
-}RgC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\CommonTestUtilities.csproj¢net8.0òCSharp12

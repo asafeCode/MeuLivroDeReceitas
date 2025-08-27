@@ -1,20 +1,0 @@
-¹
-;MyRecipeBook.Communication.Requests.RequestUserRegisterJsonobjectr
-RequestUserRegisterJson()UMyRecipeBook.Communication.Requests.RequestUserRegisterJson.RequestUserRegisterJson()P
-Name.getDMyRecipeBook.Communication.Requests.RequestUserRegisterJson.Name.getP
-Name.setDMyRecipeBook.Communication.Requests.RequestUserRegisterJson.Name.setR
-	Email.getEMyRecipeBook.Communication.Requests.RequestUserRegisterJson.Email.getR
-	Email.setEMyRecipeBook.Communication.Requests.RequestUserRegisterJson.Email.setX
-Password.getHMyRecipeBook.Communication.Requests.RequestUserRegisterJson.Password.getX
-Password.setHMyRecipeBook.Communication.Requests.RequestUserRegisterJson.Password.setó
-?MyRecipeBook.Communication.Responses.ResponseRegisteredUserJsonobject|
-ResponseRegisteredUserJson()\MyRecipeBook.Communication.Responses.ResponseRegisteredUserJson.ResponseRegisteredUserJson()T
-Name.getHMyRecipeBook.Communication.Responses.ResponseRegisteredUserJson.Name.getT
-Name.setHMyRecipeBook.Communication.Responses.ResponseRegisteredUserJson.Name.set…
-6MyRecipeBook.Communication.Responses.ResponseErrorJsonobject±
-;ResponseErrorJson(System.Collections.Generic.IList<string>)rMyRecipeBook.Communication.Responses.ResponseErrorJson.ResponseErrorJson(System.Collections.Generic.IList<string>)m
-ResponseErrorJson(string)PMyRecipeBook.Communication.Responses.ResponseErrorJson.ResponseErrorJson(string)O
-
-Errors.getAMyRecipeBook.Communication.Responses.ResponseErrorJson.Errors.getO
-
-Errors.setAMyRecipeBook.Communication.Responses.ResponseErrorJson.Errors.set

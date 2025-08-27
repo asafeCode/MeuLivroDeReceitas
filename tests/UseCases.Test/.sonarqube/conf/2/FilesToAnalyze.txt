@@ -1,7 +1,0 @@
-﻿C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Entities\EntityBase.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Entities\User.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Extensions\BooleanExtension.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Extensions\StringExtension.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Repositories\User\IUnitOfWork.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Repositories\User\IUserReadOnlyRepository.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Repositories\User\IUserWriteOnlyRepository.cs

@@ -1,1 +1,0 @@
-ƒRmC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\MyRecipeBook.Domain.csproj¢net8.0òCSharp12
