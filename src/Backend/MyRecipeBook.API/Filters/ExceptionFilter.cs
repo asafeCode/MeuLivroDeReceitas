@@ -20,7 +20,7 @@ public class ExceptionFilter : IExceptionFilter
     private static void HandleProjectException(MyRecipeBookException myRecipeBookException, ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = (int)myRecipeBookException.GetStatusCode();
-        context.Result = new ObjectResult(myRecipeBookException.GetErrorMessages());
+        context.Result = new ObjectResult(new ResponseErrorJson(myRecipeBookException.GetErrorMessages()));
     }
     private static void ThrowUnknowException(ExceptionContext context)
     { 
