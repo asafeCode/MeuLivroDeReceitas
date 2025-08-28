@@ -36,8 +36,8 @@ public class RegisterUserUseCaseTest
 
         var exception = await act.ShouldThrowAsync<ErrorOnValidationException>();
         
-        exception.ErrorMessages.Count.ShouldBe(1);
-        exception.ErrorMessages.ShouldContain(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
+        exception.GetErrorMessages().Count.ShouldBe(1);
+        exception.GetErrorMessages().ShouldContain(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
     }    
     [Fact]
     public async Task Error_Name_Empty()
@@ -51,8 +51,8 @@ public class RegisterUserUseCaseTest
 
         var exception = await act.ShouldThrowAsync<ErrorOnValidationException>();
         
-        exception.ErrorMessages.Count.ShouldBe(1);
-        exception.ErrorMessages.ShouldContain(ResourceMessagesException.NAME_EMPTY);
+        exception.GetErrorMessages().Count.ShouldBe(1);
+        exception.GetErrorMessages().ShouldContain(ResourceMessagesException.NAME_EMPTY);
     }
     
     
