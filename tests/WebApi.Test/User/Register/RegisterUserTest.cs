@@ -17,14 +17,14 @@ namespace WebApi.Test.User.Register;
 public class RegisterUserTest(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _httpClient = factory.CreateClient();
-    private readonly string method = "user";
+    private readonly string _method = "api/user";
 
     [Fact]
     public async Task Success()
     {
         var request = RequestUserRegisterJsonBuilder.Build();
 
-        var response = await _httpClient.PostAsJsonAsync(method, request);
+        var response = await _httpClient.PostAsJsonAsync(_method, request);
         
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
         
@@ -57,7 +57,7 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : IClassFixtu
         
         _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
 
-        var response = await _httpClient.PostAsJsonAsync(method, request);
+        var response = await _httpClient.PostAsJsonAsync(_method, request);
         
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         
@@ -65,13 +65,14 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : IClassFixtu
         
         var responseData = await JsonDocument.ParseAsync(responseBody);
 
-        var error = responseData.RootElement.GetProperty("errors").EnumerateArray();
+        var errors = responseData.RootElement.GetProperty("errors").EnumerateArray();
+        
         var expectedMessage = ResourceMessagesException.ResourceManager.GetString("NAME_EMPTY", new CultureInfo(culture));
         
-        error.ShouldSatisfyAllConditions(() =>
+        errors.ShouldSatisfyAllConditions(() =>
         {
-            error.ShouldHaveSingleItem();
-            error.ShouldContain(jsonElement => jsonElement.GetString()!.Equals(expectedMessage));
+            errors.ShouldHaveSingleItem();
+            errors.ShouldContain(error => error.GetString()!.Equals(expectedMessage));
         });
     }
 
