@@ -43,7 +43,7 @@ public class RegisterUserUseCaseTest
     public async Task Error_Name_Empty()
     {
         var request = RequestUserRegisterJsonBuilder.Build();
-        request.Name = String.Empty;
+        request.Name = string.Empty;
         
         var useCase = CreateUseCase();
         
