@@ -1,0 +1,6 @@
+﻿C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Application\DependencyInjectionExtension.cs
+C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Application\Services\AutoMapper\AutoMapping.cs
+C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Application\Services\Cryptography\PasswordEncripter.cs
+C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Application\UseCases\User\Register\IRegisterUserUseCase.cs
+C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Application\UseCases\User\Register\RegisterUserUseCase.cs
+C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Application\UseCases\User\Register\RegisterUserValidator.cs
