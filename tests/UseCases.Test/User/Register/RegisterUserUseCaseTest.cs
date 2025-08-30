@@ -36,14 +36,14 @@ public class RegisterUserUseCaseTest
 
         var exception = await act.ShouldThrowAsync<ErrorOnValidationException>();
         
-        exception.ErrorMessages.Count.ShouldBe(1);
-        exception.ErrorMessages.ShouldContain(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
+        exception.GetErrorMessage().Count.ShouldBe(1);
+        exception.GetErrorMessage().ShouldContain(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
     }    
     [Fact]
     public async Task Error_Name_Empty()
     {
         var request = RequestUserRegisterJsonBuilder.Build();
-        request.Name = String.Empty;
+        request.Name = string.Empty;
         
         var useCase = CreateUseCase();
         
@@ -51,8 +51,8 @@ public class RegisterUserUseCaseTest
 
         var exception = await act.ShouldThrowAsync<ErrorOnValidationException>();
         
-        exception.ErrorMessages.Count.ShouldBe(1);
-        exception.ErrorMessages.ShouldContain(ResourceMessagesException.NAME_EMPTY);
+        exception.GetErrorMessage().Count.ShouldBe(1);
+        exception.GetErrorMessage().ShouldContain(ResourceMessagesException.NAME_EMPTY);
     }
     
     
