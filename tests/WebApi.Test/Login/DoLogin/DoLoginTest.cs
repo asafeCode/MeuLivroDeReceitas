@@ -1,61 +1,60 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
-using System.Threading.Tasks;
+using CommonTestUtilities.Entities;
 using CommonTestUtilities.Requests;
-using Microsoft.AspNetCore.Mvc.Testing;
+using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Exceptions;
 using Shouldly;
 using WebApi.Test.InlineData;
-using Xunit;
 
-namespace WebApi.Test.User.Register;
+namespace WebApi.Test.Login.DoLogin;
 
-public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
+public class DoLoginTest :  IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _httpClient;
-    private readonly string _method = "api/user";
+    private readonly HttpClient _httpClient; 
+    private readonly string _method = "api/login";
+    private readonly string _email;
+    private readonly string _password;
+    private readonly string _name;
     
-    public RegisterUserTest(CustomWebApplicationFactory factory)
+    public DoLoginTest(CustomWebApplicationFactory factory)
     {
         _httpClient = factory.CreateClient();
+        _password = factory.GetPassword();
+        _email = factory.GetEmail();
+        _name = factory.GetName();
     }
-
+    
     [Fact]
     public async Task Success()
     {
-        var request = RequestUserRegisterJsonBuilder.Build();
+        var request = new RequestLoginJson()
+        {
+            Email = _email,
+            Password = _password,
+        };
 
         var response = await _httpClient.PostAsJsonAsync(_method, request);
         
-        response.StatusCode.ShouldBe(HttpStatusCode.Created);
-        
-        //responseBody com o conteúdo da response e ler com streamAsync 
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
         
         await using var responseBody = await response.Content.ReadAsStreamAsync();
         
-        //responseBody em um jsonDocument, parse async:
         var responseData = await JsonDocument.ParseAsync(responseBody);
         
-        //Json sempre vem em camelCase
-        var name = responseData.RootElement.GetProperty("name").GetString();
+        var result = responseData.RootElement.GetProperty("name").GetString();
         
-        name.ShouldSatisfyAllConditions(() =>
-        {
-            name.ShouldNotBeNullOrWhiteSpace();
-            name.ShouldBe(request.Name);
-        });
+        result.ShouldNotBeNullOrWhiteSpace();
+        result.ShouldBe(_name);
     }
     
     [Theory]
     [ClassData(typeof(CultureInlineDataTest))]
-    public async Task Error_Name_Empty(string culture)
+    public async Task Error_Invalid_User(string culture)
     {
-        var request = RequestUserRegisterJsonBuilder.Build();
-        request.Name = string.Empty;
+        var request = RequestLoginJsonBuilder.Build();
 
         if (_httpClient.DefaultRequestHeaders.Contains("Accept-Language"))
             _httpClient.DefaultRequestHeaders.Remove("Accept-Language");
@@ -64,20 +63,21 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
 
         var response = await _httpClient.PostAsJsonAsync(_method, request);
         
-        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
         
         await using var responseBody = await response.Content.ReadAsStreamAsync();
         
         var responseData = await JsonDocument.ParseAsync(responseBody);
 
         var error = responseData.RootElement.GetProperty("errors").EnumerateArray();
-        var expectedMessage = ResourceMessagesException.ResourceManager.GetString("NAME_EMPTY", new CultureInfo(culture));
+        var expectedMessage = ResourceMessagesException.ResourceManager.GetString("EMAIL_OR_PASSWORD_INVALID", new CultureInfo(culture));
         
         error.ShouldSatisfyAllConditions(() =>
         {
             error.ShouldHaveSingleItem();
             error.ShouldContain(jsonElement => jsonElement.GetString()!.Equals(expectedMessage));
         });
+        
     }
 
 }
