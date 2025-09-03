@@ -11,17 +11,15 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Login.DoLogin;
 
-public class DoLoginTest :  IClassFixture<CustomWebApplicationFactory>
+public class DoLoginTest :  MyRecipeBookClassFixture
 {
-    private readonly HttpClient _httpClient; 
     private readonly string _method = "api/login";
     private readonly string _email;
     private readonly string _password;
     private readonly string _name;
     
-    public DoLoginTest(CustomWebApplicationFactory factory)
+    public DoLoginTest(CustomWebApplicationFactory factory) : base(factory)
     {
-        _httpClient = factory.CreateClient();
         _password = factory.GetPassword();
         _email = factory.GetEmail();
         _name = factory.GetName();
@@ -36,7 +34,7 @@ public class DoLoginTest :  IClassFixture<CustomWebApplicationFactory>
             Password = _password,
         };
 
-        var response = await _httpClient.PostAsJsonAsync(_method, request);
+        var response = await DoPost(_method, request);
         
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
         
@@ -55,13 +53,8 @@ public class DoLoginTest :  IClassFixture<CustomWebApplicationFactory>
     public async Task Error_Invalid_User(string culture)
     {
         var request = RequestLoginJsonBuilder.Build();
-
-        if (_httpClient.DefaultRequestHeaders.Contains("Accept-Language"))
-            _httpClient.DefaultRequestHeaders.Remove("Accept-Language");
         
-        _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
-
-        var response = await _httpClient.PostAsJsonAsync(_method, request);
+        var response = await DoPost(_method, request, culture);
         
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
         
