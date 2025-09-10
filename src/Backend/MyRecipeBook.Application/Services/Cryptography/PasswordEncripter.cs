@@ -12,7 +12,7 @@ public class PasswordEncripter
         
         var newPassword = $"{password}{_additionalKey}";
 
-       var bytes = Encoding.UTF8.GetBytes(newPassword); // Pega os bytes da Senha
+        var bytes = Encoding.UTF8.GetBytes(newPassword); // Pega os bytes da Senha
         var hashBytes = SHA512.HashData(bytes); // Encripta os bytes, e retorna uma lista de bytes
 
         return StringBytes(hashBytes);

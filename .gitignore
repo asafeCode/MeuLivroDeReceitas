@@ -5,6 +5,10 @@
 *.sln.iml
 .idea*/
 
+# Sonar Cloud
+.sonar*/
+.sonarqube*/
+
 # Visual Studio (>=2015) project-specific, machine local files
 .vs/
 
@@ -195,6 +199,4 @@ FakesAssemblies/
 
 .vscode/settings.json
 
-.sonar*/
-/.sonarqube
-coverage.opencover.xml
+
