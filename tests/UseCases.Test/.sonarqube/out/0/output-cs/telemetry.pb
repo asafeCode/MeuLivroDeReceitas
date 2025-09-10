@@ -1,0 +1,1 @@
+êRzC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Shared\MyRecipeBook.Communication\MyRecipeBook.Communication.csproj¢net8.0ÚCSharp12

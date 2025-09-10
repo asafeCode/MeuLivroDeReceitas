@@ -7,6 +7,8 @@ using MyRecipeBook.Exceptions.ExceptionsBase;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using FluentValidation.Results;
+using MyRecipeBook.Domain.Extensions;
+using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
@@ -18,18 +20,21 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IMapper _mapper;
     private readonly PasswordEncripter _passwordEncripter;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IAccessTokenGenerator _tokenGenerator;
 
     public RegisterUserUseCase(
         IUserReadOnlyRepository readOnlyRepository, 
         IUserWriteOnlyRepository writeOnlyRepository, 
         IMapper mapper,
         PasswordEncripter passwordEncripter,
+        IAccessTokenGenerator tokenGenerator,
         IUnitOfWork unitOfWork)
     {
         _readOnlyRepository = readOnlyRepository;
         _writeOnlyRepository = writeOnlyRepository;
         _mapper = mapper;
         _passwordEncripter = passwordEncripter;
+        _tokenGenerator = tokenGenerator;
         _unitOfWork = unitOfWork;
         
     }
@@ -37,12 +42,13 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     public async Task<ResponseRegisteredUserJson> Execute(RequestUserRegisterJson request)
     {            
         
-         await Validate(request);
+        await Validate(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);// Instanciando a Classe em uma Variavel
 
         // Criptografia da Senha
         user.Password = _passwordEncripter.Encrypt(request.Password);  
+        user.UserId = Guid.NewGuid();
 
         // Salvar no banco de Dados
         await _writeOnlyRepository.Add(user);
@@ -52,7 +58,11 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
         return new ResponseRegisteredUserJson
         {
-            Name = request.Name,
+            Name = user.Name,
+            Tokens = new ResponseTokenJson
+            {
+                AccessToken = _tokenGenerator.Generate(user.UserId)
+            }
             
         };
     }
@@ -61,7 +71,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     {
         var validator = new RegisterUserValidator();
 
-        var result = validator.Validate(request);
+        var result = await validator.ValidateAsync(request);
         
         var emailExists = await _readOnlyRepository.ExistsActiveUserWithEmail(request.Email);
 
@@ -69,7 +79,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
             result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
         
 
-        if (result.IsValid == false)
+        if (result.IsValid.IsFalse())
         {
             var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
 

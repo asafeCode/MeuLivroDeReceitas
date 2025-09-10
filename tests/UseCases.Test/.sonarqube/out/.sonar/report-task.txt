@@ -1,0 +1,7 @@
+organization=matheusasafe
+projectKey=asafeCode_MeuLivroDeReceitas
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.66367
+dashboardUrl=https://sonarcloud.io/dashboard?id=asafeCode_MeuLivroDeReceitas
+ceTaskId=AZi-72bpilmT0E8RcR_8
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZi-72bpilmT0E8RcR_8

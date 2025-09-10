@@ -1,0 +1,1 @@
+‰RsC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Shared\MyRecipeBook.Exception\MyRecipeBook.Exceptions.csproj¢net8.0òCSharp12

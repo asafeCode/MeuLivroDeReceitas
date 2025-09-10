@@ -1,0 +1,10 @@
+ç
+ÅC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\obj\Debug\net8.0\CommonTestUtilities.AssemblyInfo.csutf-8ò
+åC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8è
+ÉC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\obj\Debug\net8.0\CommonTestUtilities.GlobalUsings.g.csutf-8Ä
+wC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Requests\RequestUserRegisterJsonBuilder.csutf-8Ñ
+{C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Repositories\UserWriteOnlyRepositoryBuilder.csutf-8É
+zC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Repositories\UserReadOnlyRepositoryBuilder.csutf-8w
+nC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Repositories\UnitOfWorkBuilder.csutf-8m
+dC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Mapper\MapperBuilder.csutf-8~
+uC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Cryptography\PasswordEncripterBuilder.csutf-8
