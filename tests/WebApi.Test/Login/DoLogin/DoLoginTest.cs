@@ -24,7 +24,7 @@ public class DoLoginTest :  MyRecipeBookClassFixture
         _email = factory.GetEmail();
         _name = factory.GetName();
     }
-    
+
     [Fact]
     public async Task Success()
     {
@@ -35,19 +35,24 @@ public class DoLoginTest :  MyRecipeBookClassFixture
         };
 
         var response = await DoPost(_method, request);
-        
+
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
-        
+
         await using var responseBody = await response.Content.ReadAsStreamAsync();
-        
+
         var responseData = await JsonDocument.ParseAsync(responseBody);
-        
-        var result = responseData.RootElement.GetProperty("name").GetString();
-        
-        result.ShouldNotBeNullOrWhiteSpace();
-        result.ShouldBe(_name);
+
+        var name = responseData.RootElement.GetProperty("name").GetString();
+        var tokens = responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString();
+
+        name.ShouldSatisfyAllConditions(() =>
+        {
+            name.ShouldNotBeNullOrWhiteSpace();
+            name.ShouldBe(_name);
+            tokens.ShouldNotBeNullOrEmpty();
+        });
     }
-    
+
     [Theory]
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Invalid_User(string culture)

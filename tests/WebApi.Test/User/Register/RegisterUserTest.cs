@@ -38,11 +38,13 @@ public class RegisterUserTest : MyRecipeBookClassFixture
         
         //Json sempre vem em camelCase
         var name = responseData.RootElement.GetProperty("name").GetString();
+        var tokens = responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString();
         
         name.ShouldSatisfyAllConditions(() =>
         {
             name.ShouldNotBeNullOrWhiteSpace();
             name.ShouldBe(request.Name);
+            tokens.ShouldNotBeNullOrEmpty();
         });
     }
     

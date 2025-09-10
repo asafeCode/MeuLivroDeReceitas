@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using FluentValidation.Results;
 using MyRecipeBook.Domain.Extensions;
+using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
@@ -19,18 +20,21 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IMapper _mapper;
     private readonly PasswordEncripter _passwordEncripter;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IAccessTokenGenerator _tokenGenerator;
 
     public RegisterUserUseCase(
         IUserReadOnlyRepository readOnlyRepository, 
         IUserWriteOnlyRepository writeOnlyRepository, 
         IMapper mapper,
         PasswordEncripter passwordEncripter,
+        IAccessTokenGenerator tokenGenerator,
         IUnitOfWork unitOfWork)
     {
         _readOnlyRepository = readOnlyRepository;
         _writeOnlyRepository = writeOnlyRepository;
         _mapper = mapper;
         _passwordEncripter = passwordEncripter;
+        _tokenGenerator = tokenGenerator;
         _unitOfWork = unitOfWork;
         
     }
@@ -44,6 +48,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
         // Criptografia da Senha
         user.Password = _passwordEncripter.Encrypt(request.Password);  
+        user.UserId = Guid.NewGuid();
 
         // Salvar no banco de Dados
         await _writeOnlyRepository.Add(user);
@@ -54,6 +59,10 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         return new ResponseRegisteredUserJson
         {
             Name = user.Name,
+            Tokens = new ResponseTokenJson
+            {
+                AccessToken = _tokenGenerator.Generate(user.UserId)
+            }
             
         };
     }
@@ -62,7 +71,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     {
         var validator = new RegisterUserValidator();
 
-        var result = validator.Validate(request);
+        var result = await validator.ValidateAsync(request);
         
         var emailExists = await _readOnlyRepository.ExistsActiveUserWithEmail(request.Email);
 

@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyRecipeBook.API.Attributes;
 using MyRecipeBook.Application.UseCases.Login.DoLogin;
-using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 
@@ -12,6 +11,7 @@ namespace MyRecipeBook.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status200OK)]
+        
         public async Task<IActionResult> Login(
             [FromServices] IDoLoginUseCase useCase,
             [FromBody] RequestLoginJson request)
