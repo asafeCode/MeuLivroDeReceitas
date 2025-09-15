@@ -1,0 +1,11 @@
+“
+‡C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\obj\Debug\net8.0\MyRecipeBook.Domain.AssemblyInfo.csutf-8ž
+’C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8•
+‰C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\obj\Debug\net8.0\MyRecipeBook.Domain.GlobalUsings.g.csutf-8Š
+€C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Repositories\User\IUserWriteOnlyRepository.csutf-8ˆ
+C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Repositories\User\IUserReadOnlyRepository.csutf-8|
+sC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Repositories\User\IUnitOfWork.csutf-8y
+pC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Extensions\StringExtension.csutf-8z
+qC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Extensions\BooleanExtension.csutf-8l
+cC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Entities\User.csutf-8r
+iC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Domain\Entities\EntityBase.csutf-8

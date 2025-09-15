@@ -1,0 +1,1 @@
+qR[C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\UseCases.Test\UseCases.Test.csproj¢net8.0òCSharp12

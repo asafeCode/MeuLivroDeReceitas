@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>MyRecipeBook.Exceptions</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Product</ProjectType>
+  <ProjectGuid>a34c284b-bc87-40c0-877e-ec67bdd127eb</ProjectGuid>
+  <FullPath>C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Shared\MyRecipeBook.Exception\MyRecipeBook.Exceptions.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\UseCases.Test\.sonarqube\conf\1\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\UseCases.Test\.sonarqube\out\1\Issues.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\UseCases.Test\.sonarqube\out\1</Property>
+    <Property Name="sonar.cs.scanner.telemetry">C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\UseCases.Test\.sonarqube\out\1\Telemetry.json</Property>
+  </AnalysisSettings>
+  <Configuration>Debug</Configuration>
+  <Platform>AnyCPU</Platform>
+  <TargetFramework>net8.0</TargetFramework>
+</ProjectInfo>
