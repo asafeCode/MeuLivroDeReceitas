@@ -11,17 +11,7 @@ namespace WebApi.Test.User.Profile;
 public class GetUserProfileInvalidTokenTest : MyRecipeBookClassFixture
 {
     private readonly string _method = "api/user";
-    private readonly string _email;
-    private readonly string _name;
-    private readonly Guid _userId;
-
-    public GetUserProfileInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory)
-    {
-        _email = factory.GetEmail();
-        _name = factory.GetName();
-        _userId = factory.GetUserId();
-        
-    }
+    public GetUserProfileInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory){}
 
     [Fact]
     public async Task Error_Token_Invalid()

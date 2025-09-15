@@ -4,7 +4,7 @@ using MyRecipeBook.Domain.Entities;
 
 namespace CommonTestUtilities.Requests;
 
-public class RequestLoginJsonBuilder
+public static class RequestLoginJsonBuilder
 {
     public static RequestLoginJson Build()
     {
