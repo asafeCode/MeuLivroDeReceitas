@@ -40,12 +40,8 @@ public class RegisterUserTest : MyRecipeBookClassFixture
         var name = responseData.RootElement.GetProperty("name").GetString();
         var tokens = responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString();
         
-        name.ShouldSatisfyAllConditions(() =>
-        {
-            name.ShouldNotBeNullOrWhiteSpace();
-            name.ShouldBe(request.Name);
-            tokens.ShouldNotBeNullOrEmpty();
-        });
+        name.ShouldNotBeNullOrWhiteSpace(); name.ShouldBe(request.Name);
+        tokens.ShouldNotBeNullOrEmpty();
     }
     
     [Theory]
@@ -66,11 +62,7 @@ public class RegisterUserTest : MyRecipeBookClassFixture
         var error = responseData.RootElement.GetProperty("errors").EnumerateArray();
         var expectedMessage = ResourceMessagesException.ResourceManager.GetString("NAME_EMPTY", new CultureInfo(culture));
         
-        error.ShouldSatisfyAllConditions(() =>
-        {
-            error.ShouldHaveSingleItem();
-            error.ShouldContain(jsonElement => jsonElement.GetString()!.Equals(expectedMessage));
-        });
+        error.ShouldHaveSingleItem(); error.ShouldContain(jsonElement => jsonElement.GetString()!.Equals(expectedMessage));
     }
 
 }
