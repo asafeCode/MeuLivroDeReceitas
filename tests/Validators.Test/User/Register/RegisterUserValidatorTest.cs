@@ -105,7 +105,7 @@ public class RegisterUserValidatorTest
         result.ShouldSatisfyAllConditions(() =>
             { 
                 result.Errors.ShouldHaveSingleItem(); 
-                result.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.PASSWORD_EMPTY));
+                result.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.INVALID_PASSWORD));
             }
         );
 
