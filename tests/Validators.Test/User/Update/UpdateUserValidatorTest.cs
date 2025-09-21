@@ -1,19 +1,19 @@
 ﻿using CommonTestUtilities.Requests;
-using Shouldly;
 using MyRecipeBook.Application.UseCases.User.Register;
+using MyRecipeBook.Application.UseCases.User.Update;
 using MyRecipeBook.Exceptions;
-using Xunit;
+using Shouldly;
 
-namespace Validators.Test.User.Register;
+namespace Validators.Test.User.Update;
 
-public class RegisterUserValidatorTest
+public class UpdateUserValidatorTest
 {
-    [Fact]
+     [Fact]
     public void Success()
     {
-        var validator = new RegisterUserValidator();
+        var validator = new UpdateUserValidator();
 
-        var request = RequestUserRegisterJsonBuilder.Build();
+        var request = RequestUpdateUserJsonBuilder.Build();
         
         var result = validator.Validate(request);
         
@@ -23,10 +23,10 @@ public class RegisterUserValidatorTest
     [Fact]
     public void Error_Name_Empty()
     {
-        var validator = new RegisterUserValidator();
+        var validator = new UpdateUserValidator();
 
-        var request = RequestUserRegisterJsonBuilder.Build();
-        request.Name = string.Empty;
+        var request = RequestUpdateUserJsonBuilder.Build();
+        request.NewName = string.Empty;
         
         var result = validator.Validate(request);
 
@@ -45,10 +45,11 @@ public class RegisterUserValidatorTest
     [Fact]
     public void Error_Email_Empty()
     {
-        var validator = new RegisterUserValidator();
+        var request = RequestUpdateUserJsonBuilder.Build();
+        
+        var validator = new UpdateUserValidator();
 
-        var request = RequestUserRegisterJsonBuilder.Build();
-        request.Email = string.Empty;
+        request.NewEmail = string.Empty;
         
         var result = validator.Validate(request);
 
@@ -67,10 +68,10 @@ public class RegisterUserValidatorTest
     [Fact]
     public void Error_Email_Invalid()
     {
-        var validator = new RegisterUserValidator();
+        var validator = new UpdateUserValidator();
 
-        var request = RequestUserRegisterJsonBuilder.Build();
-        request.Email = "000.com";
+        var request = RequestUpdateUserJsonBuilder.Build();
+        request.NewEmail = "000.com";
         
         var result = validator.Validate(request);
 
@@ -82,33 +83,5 @@ public class RegisterUserValidatorTest
                 result.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.EMAIL_INVALID));
             }
         );
-
-
-    }
-    
-    [Theory]
-    [InlineData(1)]
-    [InlineData(2)]
-    [InlineData(3)]
-    [InlineData(4)]
-    [InlineData(5)]
-    public void Error_Password_Invalid(int passwordLength)
-    {
-        var validator = new RegisterUserValidator();
-
-        var request = RequestUserRegisterJsonBuilder.Build(passwordLength);
-        
-        var result = validator.Validate(request);
-
-        result.IsValid.ShouldBe(false);
-        
-        result.ShouldSatisfyAllConditions(() =>
-            { 
-                result.Errors.ShouldHaveSingleItem(); 
-                result.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.INVALID_PASSWORD));
-            }
-        );
-
-
     }
 }

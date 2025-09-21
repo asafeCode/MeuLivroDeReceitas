@@ -1,12 +1,10 @@
 ﻿using Bogus;
 using CommonTestUtilities.Cryptography;
-using MyRecipeBook.Application.Services.Cryptography;
-using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Domain.Entities;
 
 namespace CommonTestUtilities.Entities;
 
-public class UserBuilder
+public static class UserBuilder
 {
     public static (User user, string password) Build()
     {

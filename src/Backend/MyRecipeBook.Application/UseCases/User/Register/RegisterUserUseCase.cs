@@ -1,15 +1,13 @@
-﻿using MyRecipeBook.Application.Services.AutoMapper;
-using MyRecipeBook.Application.Services.Cryptography;
+﻿using AutoMapper;
+using FluentValidation.Results;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
-using MyRecipeBook.Domain.Repositories.User;
-using MyRecipeBook.Exceptions.ExceptionsBase;
-using System.ComponentModel.DataAnnotations;
-using AutoMapper;
-using FluentValidation.Results;
 using MyRecipeBook.Domain.Extensions;
+using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions;
+using MyRecipeBook.Exceptions.ExceptionsBase;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
 
@@ -18,7 +16,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IUserReadOnlyRepository _readOnlyRepository;
     private readonly IUserWriteOnlyRepository _writeOnlyRepository;
     private readonly IMapper _mapper;
-    private readonly PasswordEncripter _passwordEncripter;
+    private readonly IPasswordEncripter _passwordEncripter;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IAccessTokenGenerator _tokenGenerator;
 
@@ -26,7 +24,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         IUserReadOnlyRepository readOnlyRepository, 
         IUserWriteOnlyRepository writeOnlyRepository, 
         IMapper mapper,
-        PasswordEncripter passwordEncripter,
+        IPasswordEncripter passwordEncripter,
         IAccessTokenGenerator tokenGenerator,
         IUnitOfWork unitOfWork)
     {
