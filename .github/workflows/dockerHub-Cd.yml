@@ -13,10 +13,8 @@ jobs:
       run: docker build -t asafecode/api-myrecipebook:latest .
       
     - name: Login to DockerHub
-      run: |
-        dckr_pat_0kabDvJ5V_0qMfkovmoLKKjaVd4 | docker login -u asafecode --password-stdin
+      run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
         
-
     - name: Push the Docker image
       run: |
         docker push asafecode/api-myrecipebook:latest
