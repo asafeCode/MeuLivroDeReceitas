@@ -14,8 +14,8 @@ jobs:
       
     - name: Login to DockerHub
       run: |
-        docker login -u asafecode
-        dckr_pat_0kabDvJ5V_0qMfkovmoLKKjaVd4
+        dckr_pat_0kabDvJ5V_0qMfkovmoLKKjaVd4 | docker login -u asafecode --password-stdin
+        
 
     - name: Push the Docker image
       run: |
