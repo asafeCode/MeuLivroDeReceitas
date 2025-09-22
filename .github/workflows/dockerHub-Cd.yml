@@ -9,10 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    
     - name: Build the Docker image
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        
       run: docker build -t "$DOCKERHUB_USERNAME"/api-myrecipebook:latest .
       
     - name: Login to DockerHub
