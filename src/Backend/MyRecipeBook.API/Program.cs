@@ -11,6 +11,20 @@ using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Migrations;
 var builder = WebApplication.CreateBuilder(args);
 
+
+var allowedOrigins = new[] { "http://localhost:3000" };
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(allowedOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 const string bearer = "Bearer";
 
 builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions
@@ -70,6 +84,8 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<CultureMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
