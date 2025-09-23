@@ -11,13 +11,17 @@ using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Migrations;
 var builder = WebApplication.CreateBuilder(args);
 
+
+var allowedOrigins = new[] { "http://localhost:3000" };
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("localHost", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(allowedOrigins)
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -81,7 +85,7 @@ app.UseMiddleware<CultureMiddleware>();
 
 app.UseHttpsRedirection();
 
-app.UseCors("localHost");
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
