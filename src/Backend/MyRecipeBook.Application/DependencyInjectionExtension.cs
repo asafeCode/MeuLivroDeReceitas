@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyRecipeBook.Application.Services.AutoMapper;
+using MyRecipeBook.Application.Services.Mapper;
 using MyRecipeBook.Application.UseCases.Login.DoLogin;
 using MyRecipeBook.Application.UseCases.User.ChangePassword;
 using MyRecipeBook.Application.UseCases.User.Profile;
@@ -14,16 +13,13 @@ public static class DependencyInjectionExtension
 {
     public static void AddApplication(this IServiceCollection services,  IConfiguration configuration)
     {
+        AddMapper();
         AddUseCases(services);
-        AddAutoMapper(services);
     }
 
-    private static void AddAutoMapper(this IServiceCollection services)
+    private static void AddMapper()
     {
-        services.AddScoped(option=> new MapperConfiguration(options=>
-        {
-            options.AddProfile(new AutoMapping());
-        }).CreateMapper());
+        MapConfigurations.Configure();
     }
 
 

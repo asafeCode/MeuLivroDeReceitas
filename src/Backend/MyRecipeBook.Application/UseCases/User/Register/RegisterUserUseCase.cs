@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
+using Mapster;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Extensions;
@@ -15,7 +15,6 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 {
     private readonly IUserReadOnlyRepository _readOnlyRepository;
     private readonly IUserWriteOnlyRepository _writeOnlyRepository;
-    private readonly IMapper _mapper;
     private readonly IPasswordEncripter _passwordEncripter;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IAccessTokenGenerator _tokenGenerator;
@@ -23,14 +22,12 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     public RegisterUserUseCase(
         IUserReadOnlyRepository readOnlyRepository, 
         IUserWriteOnlyRepository writeOnlyRepository, 
-        IMapper mapper,
         IPasswordEncripter passwordEncripter,
         IAccessTokenGenerator tokenGenerator,
         IUnitOfWork unitOfWork)
     {
         _readOnlyRepository = readOnlyRepository;
         _writeOnlyRepository = writeOnlyRepository;
-        _mapper = mapper;
         _passwordEncripter = passwordEncripter;
         _tokenGenerator = tokenGenerator;
         _unitOfWork = unitOfWork;
@@ -39,21 +36,17 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestUserRegisterJson request)
     {            
-        
         await Validate(request);
-
-        var user = _mapper.Map<Domain.Entities.User>(request);// Instanciando a Classe em uma Variavel
-
-        // Criptografia da Senha
-        user.Password = _passwordEncripter.Encrypt(request.Password);  
+        
+        var user = request.Adapt<Domain.Entities.User>();
+        user.Password = _passwordEncripter.Encrypt(request.Password);
+        
         user.UserId = Guid.NewGuid();
 
-        // Salvar no banco de Dados
         await _writeOnlyRepository.Add(user);
+        
         await _unitOfWork.Commit();
-
-
-
+        
         return new ResponseRegisteredUserJson
         {
             Name = user.Name,

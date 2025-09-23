@@ -1,9 +1,6 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
-using CommonTestUtilities.Mapper;
-using CommonTestUtilities.Requests;
 using MyRecipeBook.Application.UseCases.User.Profile;
-using MyRecipeBook.Application.UseCases.User.Register;
 using Shouldly;
 
 namespace UseCases.Test.User.Profile;
@@ -27,9 +24,8 @@ public class GetUserProfileUseCaseTest
     
     private static GetUserProfileUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User? user = null)
     {
-        var mapper = MapperBuilder.Build();
         var loggedUser = LoggedUserBuilder.Build(user!);
         
-        return new GetUserProfileUseCase(loggedUser, mapper);
+        return new GetUserProfileUseCase(loggedUser);
     }
 }
