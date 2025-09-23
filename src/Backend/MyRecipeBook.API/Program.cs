@@ -11,6 +11,7 @@ using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Migrations;
 var builder = WebApplication.CreateBuilder(args);
 
+
 var allowedOrigins = new[] { "http://localhost:3000" };
 
 builder.Services.AddCors(options =>

@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="appsettings.Development.json">
+    <Content Update="appsettings.Test.json">
       <DependentUpon>appsettings.json</DependentUpon>
     </Content>
-    <Content Update="appsettings.Test.json">
+    <Content Update="appsettings.Production.json">
       <DependentUpon>appsettings.json</DependentUpon>
     </Content>
   </ItemGroup>
