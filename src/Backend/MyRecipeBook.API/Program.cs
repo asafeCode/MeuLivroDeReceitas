@@ -10,7 +10,9 @@ using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Infrastructure;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Migrations;
+
 var builder = WebApplication.CreateBuilder(args);
+const string bearer = "Bearer";
 
 builder.Services.AddCors(options =>
 {
@@ -18,11 +20,10 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("http://localhost:3000")
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
-
-const string bearer = "Bearer";
 
 builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions
     .Converters.Add(new StringConverter()));
