@@ -5,27 +5,25 @@ using MyRecipeBook.API.Filters;
 using MyRecipeBook.API.Middleware;
 using MyRecipeBook.API.Token;
 using MyRecipeBook.Application;
+using MyRecipeBook.Application.Services.Mapper;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Infrastructure;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Migrations;
+
 var builder = WebApplication.CreateBuilder(args);
-
-
-var allowedOrigins = new[] { "http://localhost:3000" };
+const string bearer = "Bearer";
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins(allowedOrigins)
+        policy.WithOrigins("http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
     });
 });
-
-const string bearer = "Bearer";
 
 builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions
     .Converters.Add(new StringConverter()));

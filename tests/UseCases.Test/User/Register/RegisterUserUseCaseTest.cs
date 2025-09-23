@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using CommonTestUtilities.Cryptography;
-using CommonTestUtilities.Mapper;
+﻿using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
@@ -10,7 +7,6 @@ using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 using Shouldly;
-using Xunit;
 
 namespace UseCases.Test.User.Register;
 
@@ -25,10 +21,8 @@ public class RegisterUserUseCaseTest
         
         result.ShouldNotBeNull().ShouldSatisfyAllConditions(() =>
         {
-            result.Name.ShouldBeSameAs(request.Name);
-            result.Name.ShouldNotBeNullOrWhiteSpace();
-            result.Tokens.ShouldNotBeNull();
-            result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
+            result.Name.ShouldBeSameAs(request.Name); result.Name.ShouldNotBeNullOrWhiteSpace();
+            result.Tokens.ShouldNotBeNull(); result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
         });
     }
     [Fact]
@@ -71,13 +65,12 @@ public class RegisterUserUseCaseTest
         var readOnlyBuilder = new UserReadOnlyRepositoryBuilder();
         var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
         var writeOnly = UserWriteOnlyRepositoryBuilder.Build();   
-        var mapper = MapperBuilder.Build();
 
         if (email.NotEmpty())
         {
             readOnlyBuilder.ExistsActiveUserWithEmail(email);
         }
         
-        return new RegisterUserUseCase(readOnlyBuilder.Build(), writeOnly, mapper, passwordEncripter, accessTokenGenerator, unitOfWork);
+        return new RegisterUserUseCase(readOnlyBuilder.Build(), writeOnly, passwordEncripter, accessTokenGenerator, unitOfWork);
     }
 }
