@@ -1,7 +1,9 @@
-﻿using MyRecipeBook.Domain.Enums;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using MyRecipeBook.Domain.Enums;
 
 namespace MyRecipeBook.Domain.Entities;
 
+[Table("Recipes")]
 public class Recipe :  EntityBase
 {
     public string Title { get; set; } = string.Empty;
