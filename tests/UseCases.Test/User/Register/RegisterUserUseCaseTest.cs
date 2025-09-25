@@ -2,6 +2,7 @@
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
+using MyRecipeBook.Application.Services.Mapper;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Exceptions;
@@ -12,6 +13,10 @@ namespace UseCases.Test.User.Register;
 
 public class RegisterUserUseCaseTest
 {
+    public RegisterUserUseCaseTest()
+    {
+        MapConfigurations.Configure();
+    }
     [Fact]
     public async Task Success()
     {

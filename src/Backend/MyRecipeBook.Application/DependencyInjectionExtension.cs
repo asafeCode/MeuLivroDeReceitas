@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Mapster;
+using MapsterMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyRecipeBook.Application.Services.Mapper;
 using MyRecipeBook.Application.UseCases.Login.DoLogin;
@@ -21,13 +23,12 @@ public static class DependencyInjectionExtension
 
     private static void AddMapper(this IServiceCollection services, IConfiguration configuration)
     {
+        MapConfigurations.Configure();
         services.AddScoped<SqidsEncoder<long>>(opt => new SqidsEncoder<long>(new ()
         {
             MinLength = 3,
             Alphabet = configuration.GetValue<string>("Settings:IdCriptographyAlphabet")!
         }));
-        
-        MapConfigurations.Configure();
     }
 
 

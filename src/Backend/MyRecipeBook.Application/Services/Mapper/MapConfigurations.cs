@@ -25,7 +25,8 @@ public static class MapConfigurations
         TypeAdapterConfig<RequestRecipeJson, Recipe>
             .NewConfig()
             .Ignore(dest => dest.Instructions)
-            .Map(dest => dest.Ingredients, src => src.Ingredients.Distinct().Adapt<List<Ingredient>>())
+            .Map(dest => dest.Ingredients, 
+                src => src.Ingredients.Distinct().Adapt<List<Ingredient>>())
             .Map(dest => dest.DishTypes, src => src.DishTypes.Distinct().Adapt<List<DishType>>());
     }
 }

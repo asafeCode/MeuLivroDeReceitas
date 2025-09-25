@@ -37,7 +37,7 @@ public class RegisterRecipeUseCase : IRegisterRecipeUseCase
         
         var loggedUser = await _loggedUser.User();
         
-        var recipe = request.Adapt<Domain.Entities.Recipe>();
+        var recipe = request.Adapt<Domain.Entities.Recipe>(TypeAdapterConfig.GlobalSettings);
         recipe.UserId = loggedUser.Id;
         
         var instructions = request.Instructions.OrderBy(i => i.Step).ToList();
