@@ -16,25 +16,16 @@ public static class MapConfigurations
 
         TypeAdapterConfig<string, Ingredient>
             .NewConfig()
-            .Map(dest => dest.Item, src => src);
+            .MapWith(item => new Ingredient { Item = item });
 
         TypeAdapterConfig<ComDishType, DishType>
             .NewConfig()
-            .Map(dest => dest.Type, src => src);
+            .MapWith(type => new DishType { Type = (DomDishType)type });
 
         TypeAdapterConfig<RequestRecipeJson, Recipe>
             .NewConfig()
             .Ignore(dest => dest.Instructions)
-            .Map(dest => dest.Ingredients, src => src.Ingredients.Distinct()
-                .Select(strItem => new Ingredient()
-                {
-                    Item = strItem
-                }))
-            
-            .Map(dest => dest.DishTypes, src => src.DishTypes.Distinct()
-                .Select(type => new DishType()
-                {
-                    Type = (DomDishType)type
-                } ));
+            .Map(dest => dest.Ingredients, src => src.Ingredients.Distinct().Adapt<List<Ingredient>>())
+            .Map(dest => dest.DishTypes, src => src.DishTypes.Distinct().Adapt<List<DishType>>());
     }
 }
