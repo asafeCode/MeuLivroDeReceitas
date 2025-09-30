@@ -48,7 +48,7 @@ public class RegisterRecipeUseCaseTest
         exception.GetErrorMessage().ShouldContain(ResourceMessagesException.RECIPE_TITLE_EMPTY);
     }
     
-    private RegisterRecipeUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User? user = null)
+    private static RegisterRecipeUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User? user = null)
     {
         var loggedUser = LoggedUserBuilder.Build(user!);
         var repository = RecipeWriteOnlyRepositoryBuilder.Build();
