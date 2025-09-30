@@ -13,12 +13,13 @@ using MyRecipeBook.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 const string bearer = "Bearer";
+var allowOrigin = new string[2]{"http://localhost:3000", "http://localhost:5000"}; 
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.WithOrigins(allowOrigin)
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();

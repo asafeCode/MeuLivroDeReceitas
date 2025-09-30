@@ -1,7 +1,7 @@
 ﻿using Moq;
 using MyRecipeBook.Domain.Repositories.User;
 
-namespace CommonTestUtilities.Repositories;
+namespace CommonTestUtilities.Repositories.User;
 
 public static class UserWriteOnlyRepositoryBuilder
 {
