@@ -1,22 +1,16 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text.Json;
-using System.Threading.Tasks;
 using CommonTestUtilities.Requests;
-using Microsoft.AspNetCore.Mvc.Testing;
 using MyRecipeBook.Exceptions;
 using Shouldly;
 using WebApi.Test.InlineData;
-using Xunit;
 
 namespace WebApi.Test.User.Register;
 
 public class RegisterUserTest : MyRecipeBookClassFixture
 {
-    private readonly string _method = "api/user";
+    private const string Method = "api/user";
     
     public RegisterUserTest(CustomWebApplicationFactory factory) : base(factory) {}
 
@@ -25,7 +19,7 @@ public class RegisterUserTest : MyRecipeBookClassFixture
     {
         var request = RequestUserRegisterJsonBuilder.Build();
 
-        var response = await DoPost(_method, request);
+        var response = await DoPost(method: Method, request: request);
         
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
         
@@ -51,7 +45,7 @@ public class RegisterUserTest : MyRecipeBookClassFixture
         var request = RequestUserRegisterJsonBuilder.Build();
         request.Name = string.Empty;
         
-        var response = await DoPost(_method, request, culture);
+        var response = await DoPost(method: Method, request: request, culture: culture);
         
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         

@@ -10,7 +10,7 @@ namespace WebApi.Test.User.Profile;
 
 public class GetUserProfileInvalidTokenTheoryTest : MyRecipeBookClassFixture
 {
-    private readonly string _method = "api/user";
+    private const string Method = "api/user";
 
     public GetUserProfileInvalidTokenTheoryTest(CustomWebApplicationFactory factory) : base(factory) {}
     
@@ -18,7 +18,7 @@ public class GetUserProfileInvalidTokenTheoryTest : MyRecipeBookClassFixture
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Token_Invalid(string culture)
     {
-        var response = await DoGet(_method, token: "tokenInvalid", culture);
+        var response = await DoGet(Method, token: "tokenInvalid", culture);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
 
@@ -39,7 +39,7 @@ public class GetUserProfileInvalidTokenTheoryTest : MyRecipeBookClassFixture
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Token_Empty(string culture)
     {
-        var response = await DoGet(_method, token: string.Empty, culture);
+        var response = await DoGet(Method, token: string.Empty, culture);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
 
@@ -62,7 +62,7 @@ public class GetUserProfileInvalidTokenTheoryTest : MyRecipeBookClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
         
-        var response = await DoGet(_method, token: token, culture);
+        var response = await DoGet(Method, token: token, culture);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
 

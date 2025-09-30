@@ -12,7 +12,7 @@ namespace WebApi.Test.User.ChangePassword;
 
 public class ChangePasswordTest : MyRecipeBookClassFixture
 {
-    private readonly string _method = "api/user/change-password";
+    private const string Method = "api/user/change-password";
     private readonly Guid _userId;
     private readonly string _email;
     private readonly string _password;
@@ -32,7 +32,7 @@ public class ChangePasswordTest : MyRecipeBookClassFixture
 
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userId);
 
-        var response = await DoPut(_method, request: request, token: token);
+        var response = await DoPut(method: Method, request: request, token: token);
 
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
 
@@ -63,7 +63,7 @@ public class ChangePasswordTest : MyRecipeBookClassFixture
             NewPassword = string.Empty
         };
         
-        var response = await DoPut(_method, request: request, token: token, culture: culture);
+        var response = await DoPut(method: Method, request: request, token: token, culture: culture);
         
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         

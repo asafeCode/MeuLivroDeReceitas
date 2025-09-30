@@ -7,14 +7,14 @@ namespace WebApi.Test.User.Update;
 
 public class UpdateUserInvalidTokenTest : MyRecipeBookClassFixture
 {
-    private readonly string _method = "api/user";
+    private const string Method = "api/user";
     public UpdateUserInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory){}
 
     [Fact]
     public async Task Error_Token_Invalid()
     {
         var request = RequestUpdateUserJsonBuilder.Build();
-        var response = await DoPut(_method, request, token: "tokenInvalid");
+        var response = await DoPut(Method, request, token: "tokenInvalid");
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }  
@@ -22,7 +22,7 @@ public class UpdateUserInvalidTokenTest : MyRecipeBookClassFixture
     public async Task Error_Token_Empty()
     {
         var request = RequestUpdateUserJsonBuilder.Build();
-        var response = await DoPut(_method, request, token: string.Empty);
+        var response = await DoPut(Method, request, token: string.Empty);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }    
@@ -31,7 +31,7 @@ public class UpdateUserInvalidTokenTest : MyRecipeBookClassFixture
     {
         var request = RequestUpdateUserJsonBuilder.Build();
         var token = JwtTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
-        var response = await DoPut(_method, request, token: token);
+        var response = await DoPut(Method, request, token: token);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }
