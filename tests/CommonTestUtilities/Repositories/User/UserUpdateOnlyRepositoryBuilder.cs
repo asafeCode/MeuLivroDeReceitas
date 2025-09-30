@@ -1,8 +1,7 @@
 ﻿using Moq;
-using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Domain.Repositories.User;
 
-namespace CommonTestUtilities.Repositories;
+namespace CommonTestUtilities.Repositories.User;
 
 public class UserUpdateOnlyRepositoryBuilder
 {
@@ -10,7 +9,7 @@ public class UserUpdateOnlyRepositoryBuilder
     
     public UserUpdateOnlyRepositoryBuilder() => _repository = new Mock<IUserUpdateOnlyRepository>();
 
-    public UserUpdateOnlyRepositoryBuilder GetById(User user)
+    public UserUpdateOnlyRepositoryBuilder GetById(MyRecipeBook.Domain.Entities.User user)
     {
         _repository.Setup(repository => repository.GetById(user.Id)).ReturnsAsync(user);
         return this;
