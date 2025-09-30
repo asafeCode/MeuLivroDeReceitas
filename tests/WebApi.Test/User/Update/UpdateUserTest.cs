@@ -12,7 +12,7 @@ namespace WebApi.Test.User.Update;
 public class UpdateUserTest : MyRecipeBookClassFixture
 {
     private readonly Guid _userId;
-    private readonly string _method = "api/user";
+    private const string Method = "api/user";
     
     public UpdateUserTest(CustomWebApplicationFactory factory) : base(factory)
     {
@@ -25,7 +25,7 @@ public class UpdateUserTest : MyRecipeBookClassFixture
         var request = RequestUpdateUserJsonBuilder.Build();
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userId);
 
-        var response = await DoPut(_method, request: request, token: token);
+        var response = await DoPut(Method, request: request, token: token);
 
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
     }
@@ -38,7 +38,7 @@ public class UpdateUserTest : MyRecipeBookClassFixture
         var request = RequestUpdateUserJsonBuilder.Build();
         request.NewName = string.Empty;
         
-        var response = await DoPut(_method, request, token, culture);
+        var response = await DoPut(Method, request: request, token: token, culture: culture);
         
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         
@@ -64,7 +64,7 @@ public class UpdateUserTest : MyRecipeBookClassFixture
         var request = RequestUpdateUserJsonBuilder.Build();
         request.NewEmail = string.Empty;
         
-        var response = await DoPut(_method, request, token, culture);
+        var response = await DoPut(Method, request: request, token: token, culture: culture);
         
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         

@@ -8,14 +8,14 @@ namespace WebApi.Test.User.ChangePassword;
 
 public class ChangePasswordInvalidTokenTest : MyRecipeBookClassFixture
 {
-    private readonly string _method = "api/user";
+    private const string Method = "api/user";
     public ChangePasswordInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory){}
 
     [Fact]
     public async Task Error_Token_Invalid()
     {
         var request = new RequestChangeUserPasswordJson();
-        var response = await DoPut(_method, request ,token: "tokenInvalid");
+        var response = await DoPut(Method, request: request ,token: "tokenInvalid");
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }  
@@ -24,7 +24,7 @@ public class ChangePasswordInvalidTokenTest : MyRecipeBookClassFixture
     public async Task Error_Token_Empty()
     {
         var request = new RequestChangeUserPasswordJson();
-        var response = await DoPut(_method, request ,token: string.Empty);
+        var response = await DoPut(method: Method, request: request ,token: string.Empty);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }    
@@ -34,7 +34,7 @@ public class ChangePasswordInvalidTokenTest : MyRecipeBookClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
         var request = new RequestChangeUserPasswordJson();
-        var response = await DoPut(_method, request ,token: token);
+        var response = await DoPut(method: Method, request: request, token: token);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }
