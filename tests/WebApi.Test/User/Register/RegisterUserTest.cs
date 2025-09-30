@@ -1,16 +1,10 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text.Json;
-using System.Threading.Tasks;
 using CommonTestUtilities.Requests;
-using Microsoft.AspNetCore.Mvc.Testing;
 using MyRecipeBook.Exceptions;
 using Shouldly;
 using WebApi.Test.InlineData;
-using Xunit;
 
 namespace WebApi.Test.User.Register;
 

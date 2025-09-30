@@ -27,6 +27,7 @@ public static class DependencyInjectionExtension
 
     private static void AddSqidsEncoder(this IServiceCollection services, IConfiguration configuration)
     {
+        var alphabet = configuration.GetValue<string>("Settings:IdCriptographyAlphabet");
         services.AddScoped<SqidsEncoder<long>>(s => new SqidsEncoder<long>(new SqidsOptions()
         {
             MinLength = 3,
