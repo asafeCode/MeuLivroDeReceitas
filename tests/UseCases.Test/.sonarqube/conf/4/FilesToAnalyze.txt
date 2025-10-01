@@ -1,6 +1,0 @@
-﻿C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Cryptography\PasswordEncripterBuilder.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Mapper\MapperBuilder.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Repositories\UnitOfWorkBuilder.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Repositories\UserReadOnlyRepositoryBuilder.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Repositories\UserWriteOnlyRepositoryBuilder.cs
-C:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\tests\CommonTestUtilities\Requests\RequestUserRegisterJsonBuilder.cs
