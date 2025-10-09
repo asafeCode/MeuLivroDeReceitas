@@ -13,7 +13,7 @@ namespace WebApi.Test.Login.DoLogin;
 
 public class DoLoginTest :  MyRecipeBookClassFixture
 {
-    private const string Method = "api/login";
+    private const string Method = "login";
     private readonly string _email;
     private readonly string _password;
     private readonly string _name;

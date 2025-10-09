@@ -7,7 +7,7 @@ namespace WebApi.Test.Recipe.Register;
 
 public class RegisterRecipeInvalidTokenTest : MyRecipeBookClassFixture
 {
-    private const string Method = "api/recipe";
+    private const string Method = "recipe";
     
     public RegisterRecipeInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory) { }
     

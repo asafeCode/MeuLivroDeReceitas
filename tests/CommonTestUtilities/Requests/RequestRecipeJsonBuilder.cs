@@ -1,10 +1,11 @@
 ﻿using Bogus;
+using MyRecipeBook.Communication.Enums;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Domain.Enums;
 
 namespace CommonTestUtilities.Requests;
 
-public class RequestRecipeJsonBuilder
+public static class RequestRecipeJsonBuilder
 {
     public static RequestRecipeJson Build()
     {

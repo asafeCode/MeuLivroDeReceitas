@@ -7,7 +7,7 @@ namespace WebApi.Test.User.Update;
 
 public class UpdateUserInvalidTokenTest : MyRecipeBookClassFixture
 {
-    private const string Method = "api/user";
+    private const string Method = "user";
     public UpdateUserInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory){}
 
     [Fact]
