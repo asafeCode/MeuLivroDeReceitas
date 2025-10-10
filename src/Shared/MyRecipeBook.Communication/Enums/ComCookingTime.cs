@@ -1,4 +1,4 @@
-﻿namespace MyRecipeBook.Domain.Enums;
+﻿namespace MyRecipeBook.Communication.Enums;
 
 public enum ComCookingTime
 {

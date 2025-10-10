@@ -8,7 +8,7 @@ namespace WebApi.Test.User.ChangePassword;
 
 public class ChangePasswordInvalidTokenTest : MyRecipeBookClassFixture
 {
-    private const string Method = "api/user";
+    private const string Method = "user";
     public ChangePasswordInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory){}
 
     [Fact]

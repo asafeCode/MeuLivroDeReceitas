@@ -16,18 +16,15 @@ public class RegisterRecipeUseCase : IRegisterRecipeUseCase
     private readonly ILoggedUser _loggedUser;
     private readonly IRecipeWriteOnlyRepository _writeOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly SqidsEncoder<long> _sqidsEncoder;
 
     public RegisterRecipeUseCase(
         ILoggedUser loggedUser,
         IRecipeWriteOnlyRepository writeOnlyRepository, 
-        IUnitOfWork unitOfWork,
-        SqidsEncoder<long> sqidsEncoder)
+        IUnitOfWork unitOfWork)
     {
         _loggedUser = loggedUser;
         _writeOnlyRepository = writeOnlyRepository;
         _unitOfWork = unitOfWork;
-        _sqidsEncoder = sqidsEncoder;
     }
 
     public async Task<ResponseRegisteredRecipeJson> Execute(RequestRecipeJson request)
@@ -48,11 +45,7 @@ public class RegisterRecipeUseCase : IRegisterRecipeUseCase
         await _writeOnlyRepository.Add(recipe);
         await _unitOfWork.Commit();
 
-        return new ResponseRegisteredRecipeJson()
-        {
-            Id = _sqidsEncoder.Encode(recipe.Id),
-            Title = recipe.Title,
-        };
+        return recipe.Adapt<ResponseRegisteredRecipeJson>();
     }
 
     private static void Validate(RequestRecipeJson request)

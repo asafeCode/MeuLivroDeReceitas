@@ -1,5 +1,7 @@
-﻿using CommonTestUtilities.Entities;
+﻿using CommonTestUtilities.Cryptography;
+using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
+using MyRecipeBook.Application.Services.Mapper;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using Shouldly;
 

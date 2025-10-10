@@ -1,30 +1,28 @@
-﻿using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.MapConfiguration;
-using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.Recipe;
 using CommonTestUtilities.Requests;
-using MyRecipeBook.Application.Services.Mapper;
-using MyRecipeBook.Application.UseCases.Recipe.Register;
+using MyRecipeBook.Application.UseCases.Recipe.Filter;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
+using MyRecipeBook.Infrastructure.DataAccess.Repositories;
 using Shouldly;
 
-namespace UseCases.Test.Recipe.Register;
+namespace UseCases.Test.Recipe.Filter;
 
-public class RegisterRecipeUseCaseTest : MapperForUseCaseTests
+public class FilterRecipeUseCaseTest : MapperForUseCaseTests
 {
     [Fact]
     public async Task Success()
     {
         var (user, _) = UserBuilder.Build();
-        var request = RequestRecipeJsonBuilder.Build();
+        var request = RequestFilterRecipeJsonBuilder.Build();
         var useCase = CreateUseCase(user);
         var response = await useCase.Execute(request);
+        
+        response.ShouldNotBeNull();
 
-        response.ShouldNotBeNull(); request.Title.ShouldNotBeNull(); 
-        request.Title.ShouldBe(response.Title); response.Id.ShouldNotBeNullOrWhiteSpace();
     }    
     
     [Fact]
@@ -32,8 +30,7 @@ public class RegisterRecipeUseCaseTest : MapperForUseCaseTests
     {
         var (user, _) = UserBuilder.Build();
         
-        var request = RequestRecipeJsonBuilder.Build();
-        request.Title = string.Empty;
+        var request = RequestFilterRecipeJsonBuilder.Build();
         
         var useCase = CreateUseCase(user);
         Func<Task> act = async () => await useCase.Execute(request);
@@ -44,12 +41,12 @@ public class RegisterRecipeUseCaseTest : MapperForUseCaseTests
         exception.GetErrorMessage().ShouldContain(ResourceMessagesException.RECIPE_TITLE_EMPTY);
     }
     
-    private static RegisterRecipeUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User? user = null)
+    private static FilterRecipeUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User user,
+        IList<MyRecipeBook.Domain.Entities.Recipe> recipes)
     {
-        var loggedUser = LoggedUserBuilder.Build(user!);
-        var repository = RecipeWriteOnlyRepositoryBuilder.Build();
-        var unitOfWork = UnitOfWorkBuilder.Build();
+        var loggedUser = LoggedUserBuilder.Build(user);
+        var repository = new RecipeReadOnlyRepositoryBuilder().Filter(user, recipes).Build();
         
-        return new RegisterRecipeUseCase(loggedUser, repository, unitOfWork);
+        return new FilterRecipeUseCase(loggedUser, repository);
     }
 }
