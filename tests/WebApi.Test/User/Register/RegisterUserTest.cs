@@ -16,7 +16,7 @@ namespace WebApi.Test.User.Register;
 
 public class RegisterUserTest : MyRecipeBookClassFixture
 {
-    private readonly string _method = "api/user";
+    private const string Method = "api/user";
     
     public RegisterUserTest(CustomWebApplicationFactory factory) : base(factory) {}
 
@@ -25,7 +25,7 @@ public class RegisterUserTest : MyRecipeBookClassFixture
     {
         var request = RequestUserRegisterJsonBuilder.Build();
 
-        var response = await DoPost(_method, request);
+        var response = await DoPost(Method, request);
         
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
         
@@ -51,7 +51,7 @@ public class RegisterUserTest : MyRecipeBookClassFixture
         var request = RequestUserRegisterJsonBuilder.Build();
         request.Name = string.Empty;
         
-        var response = await DoPost(_method, request, culture);
+        var response = await DoPost(Method, request, culture);
         
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         
