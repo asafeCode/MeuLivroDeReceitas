@@ -1,1 +1,0 @@
-çRwC:\Users\User\Desktop\ProjAsafe\MeuLivroDeReceitas\src\Backend\MyRecipeBook.Application\MyRecipeBook.Application.csproj¢net8.0ÚCSharp12

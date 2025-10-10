@@ -1,16 +1,10 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text.Json;
-using System.Threading.Tasks;
 using CommonTestUtilities.Requests;
-using Microsoft.AspNetCore.Mvc.Testing;
 using MyRecipeBook.Exceptions;
 using Shouldly;
 using WebApi.Test.InlineData;
-using Xunit;
 
 namespace WebApi.Test.User.Register;
 
@@ -24,9 +18,8 @@ public class RegisterUserTest : MyRecipeBookClassFixture
     public async Task Success()
     {
         var request = RequestUserRegisterJsonBuilder.Build();
+        var response = await DoPost(method: Method, request: request);
 
-        var response = await DoPost(Method, request);
-        
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
         
         //responseBody com o conteúdo da response e ler com streamAsync 
@@ -50,8 +43,8 @@ public class RegisterUserTest : MyRecipeBookClassFixture
     {
         var request = RequestUserRegisterJsonBuilder.Build();
         request.Name = string.Empty;
-        
-        var response = await DoPost(Method, request, culture);
+
+        var response = await DoPost(method: Method, request: request, culture: culture);
         
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         

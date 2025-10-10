@@ -10,20 +10,20 @@ namespace WebApi.Test.User.Profile;
 
 public class GetUserProfileInvalidTokenTest : MyRecipeBookClassFixture
 {
-    private readonly string _method = "api/user";
+    private const string Method = "api/user";
     public GetUserProfileInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory){}
 
     [Fact]
     public async Task Error_Token_Invalid()
     {
-        var response = await DoGet(_method, token: "tokenInvalid");
+        var response = await DoGet(Method, token: "tokenInvalid");
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }  
     [Fact]
     public async Task Error_Token_Empty()
     {
-        var response = await DoGet(_method, token: string.Empty);
+        var response = await DoGet(Method, token: string.Empty);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }    
@@ -31,7 +31,7 @@ public class GetUserProfileInvalidTokenTest : MyRecipeBookClassFixture
     public async Task Token_With_User_Not_Found()
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
-        var response = await DoGet(_method, token: token);
+        var response = await DoGet(Method, token: token);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }

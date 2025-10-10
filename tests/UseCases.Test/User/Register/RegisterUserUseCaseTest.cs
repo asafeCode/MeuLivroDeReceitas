@@ -1,5 +1,6 @@
 ﻿using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Repositories;
+using CommonTestUtilities.Repositories.User;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
 using MyRecipeBook.Application.UseCases.User.Register;

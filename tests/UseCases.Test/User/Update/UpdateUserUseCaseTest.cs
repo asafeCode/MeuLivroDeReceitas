@@ -1,6 +1,7 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories;
+using CommonTestUtilities.Repositories.User;
 using CommonTestUtilities.Requests;
 using MyRecipeBook.Application.UseCases.User.Update;
 using MyRecipeBook.Domain.Extensions;
