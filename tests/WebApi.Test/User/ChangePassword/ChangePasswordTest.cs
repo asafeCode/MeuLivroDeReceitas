@@ -12,7 +12,7 @@ namespace WebApi.Test.User.ChangePassword;
 
 public class ChangePasswordTest : MyRecipeBookClassFixture
 {
-    private const string Method = "api/user/change-password";
+    private const string Method = "user/change-password";
     private readonly Guid _userId;
     private readonly string _email;
     private readonly string _password;
@@ -42,12 +42,12 @@ public class ChangePasswordTest : MyRecipeBookClassFixture
             Password = _password
         };
         
-        var loginResponseUnauth = await DoPost(method:"api/login", loginRequest);
+        var loginResponseUnauth = await DoPost(method:"login", loginRequest);
         loginResponseUnauth.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
         
         loginRequest.Password = request.NewPassword;
         
-        var loginResponseOk = await DoPost(method:"api/login", loginRequest);
+        var loginResponseOk = await DoPost(method:"login", loginRequest);
         loginResponseOk.StatusCode.ShouldBe(HttpStatusCode.OK);
     }
     

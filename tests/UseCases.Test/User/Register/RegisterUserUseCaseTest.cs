@@ -1,8 +1,10 @@
 ﻿using CommonTestUtilities.Cryptography;
+using CommonTestUtilities.MapConfiguration;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.User;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
+using MyRecipeBook.Application.Services.Mapper;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Exceptions;
@@ -11,7 +13,7 @@ using Shouldly;
 
 namespace UseCases.Test.User.Register;
 
-public class RegisterUserUseCaseTest
+public class RegisterUserUseCaseTest : MapperForUseCaseTests
 {
     [Fact]
     public async Task Success()

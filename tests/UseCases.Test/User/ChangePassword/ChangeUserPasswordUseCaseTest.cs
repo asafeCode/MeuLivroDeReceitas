@@ -4,6 +4,7 @@ using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.User;
 using CommonTestUtilities.Requests;
+using MyRecipeBook.Application.Services.Mapper;
 using MyRecipeBook.Application.UseCases.User.ChangePassword;
 using MyRecipeBook.Application.UseCases.User.Update;
 using MyRecipeBook.Communication.Requests;

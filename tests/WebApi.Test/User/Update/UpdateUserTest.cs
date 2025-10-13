@@ -12,7 +12,7 @@ namespace WebApi.Test.User.Update;
 public class UpdateUserTest : MyRecipeBookClassFixture
 {
     private readonly Guid _userId;
-    private const string Method = "api/user";
+    private const string Method = "user";
     
     public UpdateUserTest(CustomWebApplicationFactory factory) : base(factory)
     {

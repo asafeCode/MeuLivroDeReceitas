@@ -1,6 +1,7 @@
 ﻿using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
+using CommonTestUtilities.MapConfiguration;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.Recipe;
 using CommonTestUtilities.Requests;
@@ -12,13 +13,8 @@ using Shouldly;
 
 namespace UseCases.Test.Recipe.Register;
 
-public class RegisterRecipeUseCaseTest
+public class RegisterRecipeUseCaseTest : MapperForUseCaseTests
 {
-    public RegisterRecipeUseCaseTest()
-    {
-        MapConfigurations.Configure();
-    }
-
     [Fact]
     public async Task Success()
     {
@@ -53,8 +49,7 @@ public class RegisterRecipeUseCaseTest
         var loggedUser = LoggedUserBuilder.Build(user!);
         var repository = RecipeWriteOnlyRepositoryBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
-        var sqidsEncoder = IdRecipeEncripterBuilder.Build();    
         
-        return new RegisterRecipeUseCase(loggedUser, repository, unitOfWork, sqidsEncoder);
+        return new RegisterRecipeUseCase(loggedUser, repository, unitOfWork);
     }
 }

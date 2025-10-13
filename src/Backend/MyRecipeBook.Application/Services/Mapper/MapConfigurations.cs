@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using MyRecipeBook.Communication.Enums;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Entities;
@@ -9,7 +10,7 @@ namespace MyRecipeBook.Application.Services.Mapper;
 
 public static class MapConfigurations
 {
-    public static void Configure()
+    public static void Configure(SqidsEncoder<long> sqids)
     {
         TypeAdapterConfig<RequestUserRegisterJson, User>
             .NewConfig().Ignore(user => user.Password);
@@ -27,5 +28,14 @@ public static class MapConfigurations
             .Ignore(dest => dest.Instructions)
             .Map(dest => dest.Ingredients, src => src.Ingredients.Distinct().Adapt<List<Ingredient>>())
             .Map(dest => dest.DishTypes, src => src.DishTypes.Distinct().Adapt<List<DishType>>());
+            
+        TypeAdapterConfig<Recipe, ResponseRegisteredRecipeJson>
+            .NewConfig()
+            .Map(dest => dest.Id, src => sqids.Encode(src.Id));
+        
+        TypeAdapterConfig<Recipe, ResponseShortRecipeJson>
+            .NewConfig()
+            .Map(dest => dest.Id, src => sqids.Encode(src.Id));
+
     }
 }
