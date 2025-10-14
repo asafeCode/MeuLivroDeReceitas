@@ -17,11 +17,11 @@ public static class DependencyInjectionExtension
 {
     public static void AddApplication(this IServiceCollection services,  IConfiguration configuration)
     {
-        AddSqidsEncoderAndMapper(services, configuration);
+        AddSqidsEncoder(services, configuration);
         AddUseCases(services);
     }
 
-    private static void AddSqidsEncoderAndMapper(this IServiceCollection services, IConfiguration configuration)
+    private static void AddSqidsEncoder(this IServiceCollection services, IConfiguration configuration)
     {
         var alphabet = configuration.GetValue<string>("Settings:IdCriptographyAlphabet");
         var sqids = new SqidsEncoder<long>(new SqidsOptions
@@ -29,7 +29,6 @@ public static class DependencyInjectionExtension
             MinLength = 3,
             Alphabet = alphabet!
         });
-        MapConfigurations.Configure(sqids);
         services.AddSingleton(sqids);
     }
     

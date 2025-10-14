@@ -10,6 +10,7 @@ using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Infrastructure;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Migrations;
+using Sqids;
 
 var builder = WebApplication.CreateBuilder(args);
 const string bearer = "Bearer";
@@ -71,8 +72,10 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddScoped<ITokenProvider, HttpTokenValue>();
 
-
 var app = builder.Build();
+
+var sqids = app.Services.GetRequiredService<SqidsEncoder<long>>();
+MapConfigurations.Configure(sqids);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
