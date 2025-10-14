@@ -30,7 +30,7 @@ public static class DependencyInjectionExtension
             Alphabet = alphabet!
         });
         MapConfigurations.Configure(sqids);
-        services.AddScoped<SqidsEncoder<long>>(s => sqids);
+        services.AddSingleton(sqids);
     }
     
     private static void AddUseCases(this IServiceCollection services)

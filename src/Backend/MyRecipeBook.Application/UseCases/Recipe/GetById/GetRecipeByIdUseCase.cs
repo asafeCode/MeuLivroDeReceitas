@@ -20,17 +20,12 @@ public class GetRecipeByIdUseCase : IGetRecipeByIdUseCase
         _loggedUser = loggedUser;
     }
     
-    public async Task<ResponseRecipeJson> Execute(long id)
+    public async Task<ResponseRecipeJson> Execute(long recipeId)
     {
         var loggedUser = await _loggedUser.User();
         
-        var recipe = await _repository.GetById(loggedUser, id);
+        var recipe = await _repository.GetById(loggedUser, recipeId);
         
-        if (recipe is null)
-        {
-            throw new NotFoundException(ResourceMessagesException.RECIPE_NOT_FOUND);
-        }
-        
-        return recipe.Adapt<ResponseRecipeJson>();
+        return recipe is null ? throw new NotFoundException(ResourceMessagesException.RECIPE_NOT_FOUND) : recipe.Adapt<ResponseRecipeJson>();
     }
 }

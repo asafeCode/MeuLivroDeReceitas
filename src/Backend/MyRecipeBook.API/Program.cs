@@ -59,6 +59,7 @@ builder.Services.AddSwaggerGen(options =>
             new List<string>()
         }
     });
+    options.OperationFilter<IdsFilter>();
 });
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
