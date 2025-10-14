@@ -11,8 +11,8 @@ public static class RequestFilterRecipeJsonBuilder
     {
         return new Faker<RequestFilterRecipeJson>()
             .RuleFor(request => request.RecipeTitleIngredient, f => f.Lorem.Word())
-            .RuleFor(request => request.CookingTime, f => f.Make(3, f.PickRandom<ComCookingTime>))
-            .RuleFor(request => request.Difficulty, f => f.Make(3, f.PickRandom<ComDifficulty>))
-            .RuleFor(request => request.DishTypes, f => f.Make(3, f.PickRandom<ComDishType>));
+            .RuleFor(request => request.CookingTime, f => f.Make(1, f.PickRandom<ComCookingTime>))
+            .RuleFor(request => request.Difficulty, f => f.Make(1, f.PickRandom<ComDifficulty>))
+            .RuleFor(request => request.DishTypes, f => f.Make(1, f.PickRandom<ComDishType>));
     }
 }
