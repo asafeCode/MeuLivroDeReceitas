@@ -1,20 +1,103 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# 📘 MyRecipeBook – API de Gerenciamento de Receitas
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Este projeto consiste em uma **API REST para gerenciamento de receitas culinárias**, desenvolvida em **.NET / ASP.NET Core**.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+> ⚠️ **Nota importante**  
+> Este repositório foi construído a partir de um **curso orientado ao mercado de trabalho**.  
+> O **README original pertence ao autor do curso**, e esta implementação representa minha aplicação prática dos conceitos apresentados, com foco em aprendizado, arquitetura e boas práticas de backend.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+---
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## 🚀 Funcionalidades
+
+- Cadastro e autenticação de usuários
+- Autenticação segura com **JWT e Refresh Token**
+- Login social com **Google**
+- Gerenciamento de receitas:
+  - Criação
+  - Edição
+  - Exclusão
+  - Filtros
+- Upload de imagem para receitas
+- Exclusão de contas via **mensageria**
+- Integração com **IA (ChatGPT)** para geração de receitas a partir de ingredientes
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **.NET / ASP.NET Core**
+- **C#**
+- **Entity Framework Core**
+- **FluentValidation**
+- **JWT & Refresh Token**
+- **MySQL** e **SQL Server**
+- **Docker**
+- **Swagger**
+- **Azure**
+- **Git & GitFlow**
+- **CI/CD**
+- **SonarCloud**
+- **Mensageria (Service Bus / Queue)**
+
+---
+
+## 🧱 Arquitetura e Boas Práticas
+
+- **Domain-Driven Design (DDD)**
+- **SOLID**
+- **Clean Code**
+- Separação clara de responsabilidades
+- Injeção de dependências
+- APIs REST previsíveis e seguras
+- Migrations para controle de versão do banco de dados
+
+---
+
+## 🧪 Qualidade e Testes
+
+- Testes de **unidade** e **integração**
+- Análise contínua de código com **SonarCloud**:
+  - Bugs
+  - Vulnerabilidades
+  - Code Smells
+  - Cobertura de testes
+  - Código duplicado
+
+---
+
+## 🧠 Objetivo do Projeto
+
+Este projeto teve como objetivo **consolidar conhecimentos em desenvolvimento backend com .NET**, aplicando conceitos de:
+- Arquitetura limpa
+- Segurança
+- Integração contínua
+- Qualidade de código
+- Práticas utilizadas em ambientes reais de produção
+
+Serviu como base sólida para projetos autorais mais complexos e para evolução profissional como **Desenvolvedor Backend .NET**.
+
+---
+
+## ▶️ Como Executar
+
+### Pré-requisitos
+- .NET SDK
+- Visual Studio 2022+ ou VS Code
+- MySQL ou SQL Server
+
+### Passos
+```bash
+git clone https://github.com/asafeCode/Api-MyRecipeBook.git
+````
+
+1. Configure o `appsettings.Development.json`
+2. Execute a aplicação
+3. Acesse a documentação via **Swagger**
+
+---
+
+## 📄 Licença
+
+Este projeto é destinado a fins **educacionais**.
+Não é permitida a distribuição ou comercialização.
